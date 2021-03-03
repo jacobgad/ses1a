@@ -12,11 +12,8 @@ router.post('/register', async (req, res) => {
 		const { email, username, password } = req.body;
 		const user = new User({ email, username });
 		const registeredUser = await User.register(user, password);
-		req.login(registeredUser, (err) => {
-			if (err) return next(err);
-			req.flash('success', `Welcome ${username}`);
-			res.redirect('/');
-		});
+		req.flash('success', `Welcome ${username}`);
+		res.redirect('/');
 	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/register');
@@ -28,7 +25,13 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-	req.flash('success', 'Welcome back');
+	req.flash('success', `Welcome ${req.user.username}`);
+	res.redirect('/');
+});
+
+router.get('/logout', (req, res) => {
+	req.flash('success', `Goodbye ${req.user.username}`);
+	req.logout();
 	res.redirect('/');
 });
 
