@@ -8,9 +8,12 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongo')(session);
-const User = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const flash = require('connect-flash');
+
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
 
 //Connect to Mongo Database
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/restaurant';
@@ -28,6 +31,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(flash());
 
 //Express sessions
 const secret = process.env.SECRET || '$6S%NU#SkkfB4qBQu!8u';
@@ -65,7 +70,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Express Middleware
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	res.locals.success = req.flash('success');
+	res.locals.error = req.flash('error');
+	next();
+});
+
 //Express Routes
+app.use('/', userRoutes);
+
 app.get('/', (req, res) => {
 	res.render('home');
 });
