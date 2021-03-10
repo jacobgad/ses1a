@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
 		const user = new User({ email, username });
 		const registeredUser = await User.register(user, password);
 		req.flash('success', `Welcome ${username}`);
-		res.redirect('/');
+		res.redirect('/login');
 	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/register');
@@ -85,19 +85,30 @@ router.post('/forgot', async (req, res) => {
 
 	Emails.forgot(email, token);
 	req.flash('success', 'A recovery email has been sent, please check you inbox');
-	res.redirect('users/login');
+	res.redirect('/login');
 });
 
-router.get('/reset/:token', (req, res) => {
-	const user = User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
-	console.log(user)
+router.get('/reset/:token', async (req, res) => {
+	const user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
 	if (!user) {
 		req.flash('error', 'Password reset token is invalid or expired');
-		res.redirect('/');
+		return res.redirect('/login');
 	}
 	res.render('users/reset', { token: req.params.token });
 });
 
-router.post('/reset/:token', (req, res) => {});
+router.post('/reset/:token', async (req, res) => {
+	const user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
+	if (!user) {
+		req.flash('error', 'Password reset token is invalid or expired');
+		res.redirect('/login');
+	}
+	await user.setPassword(req.body.password);
+	user.resetPasswordToken = undefined;
+	user.resetPasswordExpires = undefined;
+	await user.save();
+	req.flash('success', 'Password has been reset');
+	res.redirect('/login');
+});
 
 module.exports = router;
