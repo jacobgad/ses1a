@@ -1,0 +1,40 @@
+<% layout('/layouts/boilerplate') %>
+<div class="card shadow col-lg-6 offset-lg-3 mb-5">
+	<img
+		src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80"
+		class="card-img-top"
+	/>
+	<div class="card-body">
+		<h1 class="card-title">Edit User</h1>
+		<form action="/register" method="POST" class="needs-validation" novalidate>
+			<div class="mb-3">
+				<label class="form-label" for="username">Username</label>
+				<input class="form-control" type="text" name="username" id="username" value="<%= user.username %>" required />
+				<div class="invalid-feedback">Please choose a username.</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="email">Email</label>
+				<input class="form-control" type="email" name="email" id="email" value="<%= user.email %>" required />
+				<div class="invalid-feedback">Please enter a valid email</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="password"> Current Password</label>
+				<input class="form-control" type="password" name="password" id="password" required />
+				<div class="invalid-feedback">Please enter a strong password</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="password">New Password</label>
+				<input class="form-control" type="password" name="password" id="password" required />
+				<div class="invalid-feedback">Please enter a strong password</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="password">New Password</label>
+				<input class="form-control" type="password" name="password" id="password" required />
+				<div class="invalid-feedback">Please enter a strong password</div>
+			</div>
+			<div class="d-grid gap-2">
+				<button class="btn btn-success">Update</button>
+			</div>
+		</form>
+	</div>
+</div>

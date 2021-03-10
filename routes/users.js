@@ -35,4 +35,14 @@ router.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
+router.get('/users/:username/edit', async (req, res) => {
+	const { username } = req.body;
+	const user = await User.findOne({ username: 'jacob' });
+	if (!user) {
+		req.flash('error', 'Cannot find that User');
+		return res.redirect('/');
+	}
+	res.render('users/edit', { user });
+});
+
 module.exports = router;
