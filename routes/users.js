@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/user');
+const Emails = require('../controllers/emails');
+const crypto = require('crypto');
 
 router.get('/register', (req, res) => {
 	res.render('users/register');
@@ -63,5 +65,39 @@ router.delete('/users/:username', async (req, res) => {
 	req.flash('success', 'Successfully deleted account');
 	res.redirect('/');
 });
+
+router.get('/forgot', (req, res) => {
+	res.render('users/forgot');
+});
+
+router.post('/forgot', async (req, res) => {
+	const { email } = req.body;
+	const user = await User.findOne({ email: email });
+	if (!user) {
+		req.flash('error', 'No account with that email exists.');
+		res.redirect('users/forgot');
+	}
+
+	const token = crypto.randomBytes(20).toString('hex');
+	user.resetPasswordToken = token;
+	user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+	await user.save();
+
+	Emails.forgot(email, token);
+	req.flash('success', 'A recovery email has been sent, please check you inbox');
+	res.redirect('users/login');
+});
+
+router.get('/reset/:token', (req, res) => {
+	const user = User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
+	console.log(user)
+	if (!user) {
+		req.flash('error', 'Password reset token is invalid or expired');
+		res.redirect('/');
+	}
+	res.render('users/reset', { token: req.params.token });
+});
+
+router.post('/reset/:token', (req, res) => {});
 
 module.exports = router;
