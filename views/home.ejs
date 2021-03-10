@@ -6,7 +6,7 @@
 	<a class="btn btn-primary" href="/login">login</a>
 	<a class="btn btn-primary" href="/register">register</a>
 	<% } else { %>
-	<a class="btn btn-primary" href="/users/<%= currentUser.username %> ">My Account</a>
+	<a class="btn btn-primary" href="/users/<%= currentUser.username %>/edit"><%= currentUser.username %> </a>
 	<a class="btn btn-primary" href="/logout">logout</a>
 	<% } %>
 </body>

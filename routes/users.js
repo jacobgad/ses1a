@@ -36,13 +36,32 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/users/:username/edit', async (req, res) => {
-	const { username } = req.body;
-	const user = await User.findOne({ username: 'jacob' });
+	const { username } = req.params;
+	const user = await User.findOne({ username: username });
 	if (!user) {
 		req.flash('error', 'Cannot find that User');
 		return res.redirect('/');
 	}
 	res.render('users/edit', { user });
+});
+
+router.put('/users/:username', async (req, res) => {
+	const { username } = req.params;
+	const { newUsername, email, password } = req.body;
+	const user = await User.findOneAndUpdate({ username: username }, { username: newUsername, email: email });
+	if (password) {
+		await user.setPassword(password);
+	}
+	await user.save();
+	req.flash('success', 'Successfully updated account');
+	res.redirect(`/users/${newUsername}/edit`);
+});
+
+router.delete('/users/:username', async (req, res) => {
+	const { username } = req.params;
+	await User.findOneAndDelete({ username: username });
+	req.flash('success', 'Successfully deleted account');
+	res.redirect('/');
 });
 
 module.exports = router;
