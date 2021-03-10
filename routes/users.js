@@ -74,8 +74,8 @@ router.post('/forgot', async (req, res) => {
 	const { email } = req.body;
 	const user = await User.findOne({ email: email });
 	if (!user) {
-		req.flash('error', 'No account with that email exists.');
-		res.redirect('users/forgot');
+		req.flash('error', 'No account with that email exists, please register with a new account');
+		return res.redirect('/register');
 	}
 
 	const token = crypto.randomBytes(20).toString('hex');
