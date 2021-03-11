@@ -1,5 +1,5 @@
 module.exports.welcomeMsg = function (name) {
-    return `<!doctype html>
+	return `<!doctype html>
     <html>
       <head>
         <meta name="viewport" content="width=device-width">
@@ -121,7 +121,7 @@ module.exports.welcomeMsg = function (name) {
                                     <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                                       <tbody>
                                         <tr>
-                                          <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="http://localhost:3000/login" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Get Started</a> </td>
+                                          <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="http://${process.env.DOMAIN}:${process.env.PORT}/login" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Get Started</a> </td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -189,11 +189,11 @@ module.exports.welcomeMsg = function (name) {
           </tr>
         </table>
       </body>
-    </html>`
-}
+    </html>`;
+};
 
 module.exports.resetPasswordMsg = function (token) {
-  return `<!DOCTYPE html>
+	return `<!DOCTYPE html>
   <html>
     <head>
       <meta name="viewport" content="width=device-width" />
@@ -444,7 +444,7 @@ module.exports.resetPasswordMsg = function (token) {
                                           "
                                         >
                                           <a
-                                            href="http://localhost:3000/reset/${token}"
+                                            href="http://${process.env.DOMAIN}:${process.env.PORT}/reset/${token}"
                                             target="_blank"
                                             style="
                                               display: inline-block;
@@ -533,5 +533,5 @@ module.exports.resetPasswordMsg = function (token) {
       </table>
     </body>
   </html>
-  `
-}
+  `;
+};

@@ -5,10 +5,10 @@ const { welcomeMsg, resetPasswordMsg } = require('../public/js/emailTemplates');
 let transporter = nodemailer.createTransport({
 	host: 'smtp.migadu.com',
 	port: 465,
-	secure: true, // true for 465, false for other ports
+	secure: true,
 	auth: {
-		user: 'restaurant@gadserver.com', // generated ethereal user
-		pass: 'U&vbLZxjRN8^tbKK4mdc', // generated ethereal password
+		user: process.env.EMAIL_USER,
+		pass: process.env.EMAIL_PASS, 
 	},
 });
 

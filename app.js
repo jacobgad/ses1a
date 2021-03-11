@@ -17,7 +17,7 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 
 //Connect to Mongo Database
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/restaurant';
+const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -42,7 +42,7 @@ app.use(methodOverride('_method'));
 app.use(flash());
 
 //Express sessions
-const secret = process.env.SECRET || '$6S%NU#SkkfB4qBQu!8u';
+const secret = process.env.SECRET;
 
 const store = new MongoDBStore({
 	url: dbUrl,
@@ -92,7 +92,7 @@ app.get('/', (req, res) => {
 	res.render('home');
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
 	console.log(`serving on port ${port}`);
 });
