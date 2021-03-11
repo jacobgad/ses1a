@@ -16,6 +16,7 @@ router.post('/register', async (req, res) => {
 		const registeredUser = await User.register(user, password);
 		req.flash('success', `Welcome ${username}`);
 		res.redirect('/login');
+		Emails.welcome(email, username);
 	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/register');
@@ -84,7 +85,7 @@ router.post('/forgot', async (req, res) => {
 	await user.save();
 
 	Emails.forgot(email, token);
-	req.flash('success', 'A recovery email has been sent, please check you inbox');
+	req.flash('success', `A recovery email has been sent to ${email}, please check you inbox`);
 	res.redirect('/login');
 });
 
