@@ -2,6 +2,7 @@ const crypto = require('crypto');
 
 const User = require('../models/user');
 const Emails = require('../controllers/emails');
+const { nextTick } = require('process');
 
 module.exports.renderRegister = (req, res) => {
 	res.render('users/register');
@@ -12,9 +13,12 @@ module.exports.register = async (req, res) => {
 		const { email, username, password } = req.body;
 		const user = new User({ email, username });
 		const registeredUser = await User.register(user, password);
-		req.flash('success', `Welcome ${username}`);
-		res.redirect('/login');
-		Emails.welcome(email, username);
+		req.login(registeredUser, (err) => {
+			if (err) return next(err);
+			req.flash('success', `Welcome ${username}`);
+			res.redirect('/');
+			Emails.welcome(email, username);
+		});
 	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/register');
