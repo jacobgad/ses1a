@@ -40,7 +40,7 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.renderEdit = async (req, res) => {
-	const { username } = req.params;
+	const { username } = req.user;
 	const user = await User.findOne({ username: username });
 	if (!user) {
 		req.flash('error', 'Cannot find that User');
@@ -50,7 +50,7 @@ module.exports.renderEdit = async (req, res) => {
 };
 
 module.exports.updateUser = async (req, res) => {
-	const { username } = req.params;
+	const { username } = req.user;
 	try {
 		const { newUsername, email, password } = req.body;
 		const user = await User.findOneAndUpdate({ username: username }, { username: newUsername, email: email });
@@ -67,7 +67,7 @@ module.exports.updateUser = async (req, res) => {
 };
 
 module.exports.deleteUser = async (req, res) => {
-	const { username } = req.params;
+	const { username } = req.user;
 	await User.findOneAndDelete({ username: username });
 	req.flash('success', 'Successfully deleted account');
 	res.redirect('/');
