@@ -2,7 +2,6 @@ const crypto = require('crypto');
 
 const User = require('../models/user');
 const Emails = require('../controllers/emails');
-const { nextTick } = require('process');
 
 module.exports.renderRegister = (req, res) => {
 	res.render('users/register');
