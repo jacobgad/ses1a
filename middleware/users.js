@@ -6,3 +6,12 @@ module.exports.isLoggedIn = (req, res, next) => {
 	}
 	next();
 };
+
+module.exports.isUser = (req, res, next) => {
+	const { username } = req.params;
+	if (username !== req.user.username) {
+		req.flash('error', 'You do not have permission to do that');
+		return res.redirect('/login');
+	}
+	next();
+};

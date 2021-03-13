@@ -16,10 +16,10 @@ router.route('/login')
 router.get('/logout', users.logout)
 
 router.route('/users/:username')
-	.put(users.updateUser)
-	.delete(users.deleteUser)
+	.put(isLoggedIn, isUser, users.updateUser)
+	.delete(isLoggedIn, isUser, users.deleteUser)
 
-router.get('/users/:username/edit', users.renderEdit)
+router.get('/users/:username/edit', isLoggedIn, isUser, users.renderEdit)
 
 router.route('/forgot')
 	.get(users.renderForgot)
