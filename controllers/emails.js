@@ -29,7 +29,7 @@ module.exports.welcome = async function (email, name) {
 		from: 'restaurant@gadserver.com', // sender address
 		to: email, // list of receivers
 		subject: 'Welcome Restaurant', // Subject line
-		html: welcomeTemplate(name), // html body
+		html: welcomeMsg(name), // html body
 	});
 	console.log('Message sent: %s', info.messageId);
 };
