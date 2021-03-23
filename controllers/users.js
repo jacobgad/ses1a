@@ -83,17 +83,13 @@ module.exports.renderForgot = (req, res) => {
 module.exports.forgot = async (req, res) => {
 	const { email } = req.body;
 	const user = await User.findOne({ email: email });
-	if (!user) {
-		req.flash('error', 'No account with that email exists, please register with a new account');
-		return res.redirect('/register');
+	if (user) {
+		const token = crypto.randomBytes(20).toString('hex');
+		user.resetPasswordToken = token;
+		user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+		await user.save();
+		Emails.forgot(email, token);
 	}
-
-	const token = crypto.randomBytes(20).toString('hex');
-	user.resetPasswordToken = token;
-	user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-	await user.save();
-
-	Emails.forgot(email, token);
 	req.flash('success', `A recovery email has been sent to ${email}`);
 	res.redirect('/login');
 };
