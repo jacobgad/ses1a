@@ -17,7 +17,7 @@ module.exports.newAdmin = async (req, res) => {
 		req.login(registeredUser, (err) => {
 			if (err) return next(err);
 			req.flash('success', `Welcome ${username}`);
-			res.redirect('/admin');
+			res.redirect('/admin/staff');
 			Emails.welcome(email, username);
 		});
 	} catch (e) {
