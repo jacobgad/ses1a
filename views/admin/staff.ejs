@@ -1,0 +1,64 @@
+<% layout('/layouts/boilerplate') %>
+
+<h1>Staff</h1>
+<br>
+<h3>Add a Staff Member</h3>
+<form action="/admin/staff" method="post" class="needs-validation" novalidate>
+	<div class="input-group">
+		<input type="text" aria-label="username" name="username" placeholder="Username" class="form-control" required/>
+		<input type="email" aria-label="email" name="email" placeholder="Email" class="form-control" required/>
+		<input type="password" aria-label="password" name="password" placeholder="Password" class="form-control" required/>
+		<select class="form-select" id="role" name="role" required>
+			<option value="staff" selected>Staff</option>
+			<% if(currentUser.role === 'admin') { %>
+			<option value="admin">Admin</option>
+			<% } %>
+		</select>
+		<button class="btn btn-success">Add +</button>
+	</div>
+</form>
+
+<br>
+<h3>Edit Staff Details</h3>
+<% for (let user of users) { %> 
+<form action="/admin/staff?_method=PUT" method="POST" class="needs-validation mb-3" novalidate>
+    <div class="input-group">
+        <input type="text" aria-label="username" name="newUsername" value=<%= user.username %> class="form-control" required/>
+        <input type="email" aria-label="email" name="email" value=<%= user.email %>  class="form-control" required/>
+        <input type="password" aria-label="password" name="password" placeholder="New Password" class="form-control" />
+        <select class="form-select" id="role" name="role" value=<%= user.role %> required>
+            <option value="staff" selected>Staff</option>
+            <% if(currentUser.role === 'admin') { %>
+            <option value="admin">Admin</option>
+            <% } %>
+        </select>
+        <input type="hidden" name="id" value=<%= user.id %> >
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount">
+            Delete
+        </button>
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Permanently Delete User <%= user.username %></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				This action is not reversable, and will permanently delete all data related to your account
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<form action="/admin/staff?_method=DELETE " method="POST">
+                    <input type="hidden" name="id" value=<%= user.id %> >
+					<button type="submit" class="btn btn-danger">Delete User</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<% } %> 
