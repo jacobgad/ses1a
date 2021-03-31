@@ -33,15 +33,12 @@ module.exports.renderStaff = async (req, res) => {
 
 module.exports.newStaff = async (req, res) => {
 	try {
-		const { email, username, password } = req.body;
-		const user = new User({ email, username, role: 'staff' });
-		const registeredUser = await User.register(user, password);
-		req.login(registeredUser, (err) => {
-			if (err) return next(err);
-			req.flash('success', `Welcome ${username}`);
-			res.redirect('/admin/staff');
-			Emails.welcome(email, username);
-		});
+		const { email, username, password, role } = req.body;
+		const user = new User({ email, username, role: role });
+		await User.register(user, password);
+		req.flash('success', `${username} has been added as ${role}`);
+		res.redirect('/admin/staff');
+		Emails.welcome(email, username);
 	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/admin/staff');
