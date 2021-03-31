@@ -26,7 +26,7 @@
         <input type="text" aria-label="username" name="newUsername" value=<%= user.username %> class="form-control" required/>
         <input type="email" aria-label="email" name="email" value=<%= user.email %>  class="form-control" required/>
         <input type="password" aria-label="password" name="password" placeholder="New Password" class="form-control" />
-        <select class="form-select" name="role" value=<%= user.role %> required>
+        <select class="form-select" name="role" value=<%= user.role %> <%= currentUser.role === 'admin' ? '' : 'disabled' %> required>
             <option value="staff" <%= user.role === 'staff' ? 'selected' : '' %> >Staff</option>
             <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %> >Admin</option>
         </select>
