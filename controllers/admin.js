@@ -5,11 +5,15 @@ module.exports.renderIndex = (req, res) => {
 	res.render('admin/index');
 };
 
-module.exports.renderNewAdmin = (req, res) => {
+module.exports.renderFirstAdmin = async (req, res) => {
+	const admin = await User.findOne({ role: 'admin' });
+	if (admin) return res.redirect('/admin');;
 	res.render('admin/new');
 };
 
-module.exports.newAdmin = async (req, res) => {
+module.exports.firstAdmin = async (req, res) => {
+	const admin = await User.findOne({ role: 'admin' });
+	if (admin) return res.redirect('/admin');;
 	try {
 		const { email, username, password } = req.body;
 		const user = new User({ email, username, role: 'admin' });
