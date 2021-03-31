@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const { renderIndex, renderStaff, newStaff, deleteStaff, updateStaff, renderFirstAdmin, firstAdmin } = require('../controllers/admin');
+const admin = require('../controllers/admin');
 const { isNotUser } = require('../middleware/admin')
 const { isLoggedIn } = require('../middleware/users');
 
 router.route('/')
-	.get(isLoggedIn, isNotUser, renderIndex)
-	.post(firstAdmin);
+	.get(isLoggedIn, isNotUser, admin.renderIndex)
+	.post(admin.firstAdmin);
 
-router.get('/new', renderFirstAdmin);
+router.get('/new', admin.renderFirstAdmin);
 
 router.route('/staff')
-	.get(isLoggedIn, isNotUser, renderStaff)
-	.post(isLoggedIn, isNotUser, newStaff)
-	.put(isLoggedIn, isNotUser, updateStaff)
-	.delete(isLoggedIn, isNotUser, deleteStaff);
+	.get(isLoggedIn, isNotUser, admin.renderStaff)
+	.post(isLoggedIn, isNotUser, admin.newStaff)
+	.put(isLoggedIn, isNotUser, admin.updateStaff)
+	.delete(isLoggedIn, isNotUser, admin.deleteStaff);
 
 module.exports = router;
