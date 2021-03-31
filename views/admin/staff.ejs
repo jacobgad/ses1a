@@ -32,14 +32,14 @@
         </select>
         <input type="hidden" name="id" value=<%= user.id %> >
         <button type="submit" class="btn btn-primary" <%= currentUser.role === 'admin' || currentUser.id === user.id ? '' : 'disabled' %> >Update</button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount" <%= currentUser.role === 'admin' || currentUser.id === user.id ? '' : 'disabled' %> >
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount_<%= user.username %>" <%= currentUser.role === 'admin' || currentUser.id === user.id ? '' : 'disabled' %> >
             Delete
         </button>
     </div>
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteAccount_<%= user.username %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

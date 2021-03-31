@@ -52,8 +52,8 @@ module.exports.newStaff = async (req, res) => {
 module.exports.updateStaff = async (req, res) => {
 	try {
 		const { id } = req.body;
-		const { newUsername, email, password } = req.body;
-		const user = await User.findByIdAndUpdate(id, { username: newUsername, email: email });
+		const { newUsername, email, password, role } = req.body;
+		const user = await User.findByIdAndUpdate(id, { username: newUsername, email: email, role: role });
 		if (password) {
 			await user.setPassword(password);
 		}
