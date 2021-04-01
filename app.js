@@ -95,6 +95,10 @@ app.get('/', noAdmin, (req, res) => {
 	res.render('home');
 });
 
+app.get('/contact', (req, res) => {
+	res.render('contact');
+});
+
 const port = process.env.PORT;
 app.listen(port, () => {
 	console.log(`serving on port ${port}`);
