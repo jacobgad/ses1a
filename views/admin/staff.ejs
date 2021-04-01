@@ -10,9 +10,7 @@
 		<input type="password" aria-label="password" name="password" placeholder="Password" class="form-control" required/>
 		<select class="form-select" id="role" name="role" required>
 			<option value="staff" selected>Staff</option>
-			<% if(currentUser.role === 'admin') { %>
-			<option value="admin">Admin</option>
-			<% } %>
+			<option value="admin" <%= currentUser.role === 'admin' ? '' : 'disabled' %> >Admin</option>
 		</select>
 		<button class="btn btn-success">Add User</button>
 	</div>
@@ -26,7 +24,7 @@
         <input type="text" aria-label="username" name="newUsername" value=<%= user.username %> class="form-control" required/>
         <input type="email" aria-label="email" name="email" value=<%= user.email %>  class="form-control" required/>
         <input type="password" aria-label="password" name="password" placeholder="New Password" class="form-control" />
-        <select class="form-select" name="role" value=<%= user.role %> <%= currentUser.id === user.id ? '' : 'disabled' %> required>
+        <select class="form-select" name="role" value=<%= user.role %> <%= currentUser.role === 'admin' || currentUser.id === user.id ? '' : 'disabled' %> required>
             <option value="staff" <%= user.role === 'staff' ? 'selected' : '' %> >Staff</option>
             <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %> <%= currentUser.role === 'admin' ? '' : 'disabled' %> >Admin</option>
         </select>
