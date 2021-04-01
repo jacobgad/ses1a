@@ -26,9 +26,9 @@
         <input type="text" aria-label="username" name="newUsername" value=<%= user.username %> class="form-control" required/>
         <input type="email" aria-label="email" name="email" value=<%= user.email %>  class="form-control" required/>
         <input type="password" aria-label="password" name="password" placeholder="New Password" class="form-control" />
-        <select class="form-select" name="role" value=<%= user.role %> <%= currentUser.role === 'admin' ? '' : 'disabled' %> required>
+        <select class="form-select" name="role" value=<%= user.role %> <%= currentUser.id === user.id ? '' : 'disabled' %> required>
             <option value="staff" <%= user.role === 'staff' ? 'selected' : '' %> >Staff</option>
-            <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %> >Admin</option>
+            <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %> <%= currentUser.role === 'admin' ? '' : 'disabled' %> >Admin</option>
         </select>
         <input type="hidden" name="id" value=<%= user.id %> >
         <button type="submit" class="btn btn-primary" <%= currentUser.role === 'admin' || currentUser.id === user.id ? '' : 'disabled' %> >Update</button>
