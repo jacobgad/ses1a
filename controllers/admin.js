@@ -38,7 +38,7 @@ module.exports.renderStaff = async (req, res) => {
 module.exports.newStaff = async (req, res) => {
 	try {
 		const { email, username, password, role } = req.body;
-		if ((role === 'admin' && req.user.role !== 'admin')) {
+		if (role === 'admin' && req.user.role !== 'admin') {
 			req.flash('error', 'You do not have permission to do that');
 			return res.redirect('/admin/staff');
 		}
@@ -56,11 +56,15 @@ module.exports.newStaff = async (req, res) => {
 module.exports.updateStaff = async (req, res) => {
 	try {
 		const { id, newUsername, email, password, role } = req.body;
-		if ((role === 'admin' && req.user.role !== 'admin')) {
+		if (role === 'admin' && req.user.role !== 'admin') {
 			req.flash('error', 'You do not have permission to do that');
 			return res.redirect('/admin/staff');
 		}
-		const user = await User.findByIdAndUpdate(id, { username: newUsername, email: email, role: role });
+		const user = await User.findByIdAndUpdate(
+			id,
+			{ username: newUsername, email: email, role: role },
+			{ runValidators: true }
+		);
 		if (password) {
 			await user.setPassword(password);
 		}
