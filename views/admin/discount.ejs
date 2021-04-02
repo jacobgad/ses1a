@@ -1,0 +1,18 @@
+<% layout('/layouts/boilerplate') %>
+
+<h1>Discount Page</h1>
+<form action="/discount" method="POST">
+    <div>
+        <input type="text" name="code" placeholder="discount code">
+        <input type="number" name="percentage" placeholder="% amount">
+        <button type="submit" class="btn btn-success">apply</button>
+    </div>
+</form>
+
+<div>
+    <h1> <%= discounts %> </h1>
+    <label class="form-label" for="code">Username</label>
+    <label><%=discounts.code %></label>
+
+</div>
+
