@@ -1,0 +1,106 @@
+<head>
+  <style>
+    .b-sidebar .sidebar-content{
+      width: 400px;
+    }
+
+    .b-sidebar .formItemWrapper{
+      padding: 10px 0px 10px 10px;
+    }
+
+    .b-sidebar .headingWrapper{
+      padding: 0px 10px;
+    }
+
+    .dropdown-item:active{
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+<% layout('/layouts/boilerplate') %>
+
+<body>
+  <div id="app">
+    <b-sidebar
+      type="is-ligjt"
+      :fullheight="true"
+      :overlay="true"
+      :right="true"
+      v-model="open"
+    >
+    <div class="headingWrapper">
+      <h3>Select a date</h3>
+    </div>
+    <div class="formItemWrapper">
+      <b-datepicker v-model="date" 
+        inline >
+      </b-datepicker> 
+    </div>
+    <div class="headingWrapper">
+      <h3>Select a time</h3>
+    </div>
+    <div class="formItemWrapper">
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <div>
+          <option value="1700">5:00pm</option>
+        <option value="1715">5:15pm</option>
+        <option value="1730">5:30pm</option>
+        <option value="1745">5:45pm</option>
+        <option value="1800">6:00pm</option>
+        <option value="1815">6:15pm</option>
+        <option value="1830">6:30pm</option>
+        <option value="1845">6:45pm</option>
+        <option value="1900">7:00pm</option>
+        <option value="1815">7:15pm</option>
+        <option value="1830">7:30pm</option>
+        <option value="1845">7:45pm</option>
+        <option value="2000">8:00pm</option>
+        <option value="2015">8:15pm</option>
+        <option value="2030">8:30pm</option>
+        <option value="2045">8:45pm</option>
+        <option value="2100">9:00pm</option>
+        <option value="2115">9:15pm</option>
+        <option value="2130">9:30pm</option>
+        <option value="2145">9:45pm</option>
+        <option value="2200">10:00pm</option>
+        </div>
+
+        <div class="headingWrapper">
+          <h3>Number of People</h3>
+        </div>
+        <div class="formItemWrapper">
+        </div>
+
+      </select>
+    </div>
+    </b-sidebar>
+
+    <b-button @click="open = true">Show</b-button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+
+  <script>
+    const min = new Date();
+    min.setHours(17);
+    min.setMinutes(0);
+
+    const max = new Date();
+    max.setHours(21);
+    max.setMinutes(0);
+
+    const app = new Vue({
+            el: '#app',
+            data: {
+              open: false,
+              date: new Date(),
+              minTime: min,
+              maxTime: max,
+              minutesGranularity: 15
+            }
+        })
+  </script>
+</body>
