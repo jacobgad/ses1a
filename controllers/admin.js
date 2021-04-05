@@ -42,7 +42,7 @@ module.exports.newStaff = async (req, res) => {
 			req.flash('error', 'You do not have permission to do that');
 			return res.redirect('/admin/staff');
 		}
-		const user = new User({ email, username, role: role });
+		const user = new User({ email, username, role });
 		await User.register(user, password);
 		req.flash('success', `${username} has been added as ${role}`);
 		res.redirect('/admin/staff');
