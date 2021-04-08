@@ -17,6 +17,10 @@ body {
   background: rgba(255, 255, 255, 0.8);
 }
 
+.active-page {
+  background: rgba(150, 150, 150, 0.35);
+}
+
 .mid-opacity {
   background: rgba(112, 112, 112, 0.8);
 }
