@@ -1,0 +1,22 @@
+.btn-circle {
+  width: 36px;
+  height: 36px;
+  padding: 6px 0px;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+body {
+  background-image: url(Background.jpg);
+  background-repeat: no-repeat;
+}
+
+.lr-opacity {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.mid-opacity {
+  background: rgba(112, 112, 112, 0.8);
+}
