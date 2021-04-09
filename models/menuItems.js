@@ -8,7 +8,7 @@ const MenuItemSchema = new Schema({
 	},
 	price: {
 		type: Number,
-		require: true,
+		required: true,
 	},
 	description: String,
 	imageUrl: String,

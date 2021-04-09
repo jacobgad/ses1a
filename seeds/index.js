@@ -18,12 +18,8 @@ db.once('open', () => console.error('Connected to Database'));
 const seedDB = async () => {
 	await MenuItem.deleteMany({});
 	for (menuItem of seedMenuItems) {
-		const newMenuItem = new MenuItem({
-			name: menuItem.name,
-			price: menuItem.price,
-			description: menuItem.description,
-			imageUrl: menuItem.imageUrl,
-		});
+		const { name, description, imageUrl, price } = menuItem;
+		const newMenuItem = new MenuItem({ name, description, imageUrl, price });
 		await newMenuItem.save();
 	}
 };
