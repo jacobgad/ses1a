@@ -1,12 +1,10 @@
-<% layout('/layouts/boilerplate') %>
-
-<main class="container mt-5">
-    
+<% layout('layouts/menuBoilerPlate') %>
+  
     <div class="container">
       <div class="row">
         <div class="col p-2 lr-opacity">
           <div class="pb-4 text-center">
-            <img src="ArcLightLogo.png" class="rounded-pill w-50" alt="Arclight Logo">
+            <img src="https://lh3.googleusercontent.com/SQC1sMA80Rtp-QRlflNiDS9TN3P71urCxKK5Hf_NfJWn32Yjvo5qpPPrlKoa2px6tQdmdw=s114" class="rounded-pill w-50" alt="Arclight Logo">
           </div>
           <ul class="ps-2 list-group list-group-flush bg-transparent w-75">
             <a href="#" class="list-group-item text-dark active-page pb-0 border-dark ">
@@ -27,9 +25,9 @@
             </a>
           </ul>
           <div class="d-flex pb-3 justify-content-center gap-4">
-            <img width="40" height="40" src="fbLogo.png" alt="Facebook Link">
-            <img width="40" height="40" src="IgLogo.png" alt="Instagram Link">
-            <img width="40" height="40" src="GoogleLogo.png" alt="Google Page Link">
+            <img width="40" height="40" src="https://lh3.googleusercontent.com/WxcZMI-t30SKThlu95XSK_X7n-2oWiZxS_Z2CEnjXXSBgNI4eQY8fiIGz-tdgm3J_4Pb=s85" alt="Facebook Link">
+            <img width="40" height="40" src="https://lh3.googleusercontent.com/THijCo9ln33Rut-1y0J9LRn5T7UjEG35uxshxX6c0G_AZDsWP1FvuAr6M0NmnOaz6xSeIw=s85" alt="Instagram Link">
+            <img width="40" height="40" src="https://lh3.googleusercontent.com/nU1-FbMfmJwBne3W7qnjbNkUsknqK4CYyBvxZVJ_TM3I_k9P4a_2CxzGNU54XAnU4pNtQCg=s85" alt="Google Page Link">
           </div>
           <p>1266, Lake Floyd Circle, Aiden, KS, Kansas, 67512</p>
         </div>
@@ -42,15 +40,15 @@
                     <div class="card mb-3 bg-transparent border-0" style="max-width: 540px;">
                         <div class="row g-0">
                         <div class="col-md-4 align-middle">
-                            <img src="<%= MenuItem.itemImageUrl %>" class="pt-3 img-fluid rounded-3" alt="PistachioQuiche">
+                            <img src="<%= MenuItem.imageUrl %>" class="pt-3 img-fluid rounded-3" alt="PistachioQuiche">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="card-title"><%= MenuItem.itemName %></h5>
+                                <h5 class="card-title"><%= MenuItem.name %></h5>
                                 <p class="card-text">$00.00</p>
                             </div>
-                            <p class="card-text"><%= MenuItem.itemDisc %> </p>
+                            <p class="card-text"><%= MenuItem.description %> </p>
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="button" class="btn btn-sm btn-circle bg-white"><h5>+</h5></button>
                                 <button type="button" class="btn btn-sm btn-circle bg-white"><h5>-</h5></button>
@@ -78,5 +76,3 @@
         </div>
       </div>
     </div>
-
-  </main>
