@@ -1,5 +1,32 @@
-#test {
-	width: 100px;
-	height: 100px;
-	background-color: red;
-}
+.btn-circle {
+	width: 36px;
+	height: 36px;
+	padding: 6px 0px;
+	border-radius: 18px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 1.42857;
+  }
+  
+  body {
+	background-image: url(https://img.theculturetrip.com/1440x/smart/wp-content/uploads/2020/11/2br19p4.jpg);
+	background-repeat: no-repeat;
+	width: 100%;
+    align-items : center;
+    height: 100%;
+    background-position: center center;
+	background-size: cover;
+
+  }
+  
+  .lr-opacity {
+	background: rgba(255, 255, 255, 0.8);
+  }
+  
+  .active-page {
+	background: rgba(150, 150, 150, 0.35);
+  }
+  
+  .mid-opacity {
+	background: rgba(112, 112, 112, 0.8);
+  }
