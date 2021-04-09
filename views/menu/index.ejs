@@ -60,13 +60,13 @@
 					<div class="card mb-3 bg-transparent border-0" style="max-width: 540px">
 						<div class="row g-0">
 							<div class="col-md-4 align-middle">
-								<img src="<%= MenuItem.imageUrl %>" class="pt-3 img-fluid rounded-3" alt="PistachioQuiche" />
+								<img src="<%= MenuItem.imageUrl %>" class="pt-3 img-fluid rounded-3"/>
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
 									<div class="d-flex justify-content-between">
 										<h5 class="card-title"><%= MenuItem.name %></h5>
-										<p class="card-text">$00.00</p>
+										<h6 class="card-text">$ <%= MenuItem.price %></h6>
 									</div>
 									<p class="card-text"><%= MenuItem.description %></p>
 									<div class="d-flex justify-content-end gap-2">
