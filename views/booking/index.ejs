@@ -38,58 +38,60 @@
       :right="true"
       v-model="open"
     >
-    <div>
-      <h1 class="headingWrapper">Make a booking</h1>
-      <div class="headingWrapper">
-        <h3>Select a date</h3>
-      </div>
-      <div class="formItemWrapper">
-        <b-datepicker v-model="date" 
-          inline >
-        </b-datepicker> 
-      </div>
-      <div class="headingWrapper">
-        <h3>Select a time</h3>
-      </div>
-      <div class="formItemWrapper">
-        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-          <div>
-          <option value="1700">5:00pm</option>
-          <option value="1715">5:15pm</option>
-          <option value="1730">5:30pm</option>
-          <option value="1745">5:45pm</option>
-          <option value="1800">6:00pm</option>
-          <option value="1815">6:15pm</option>
-          <option value="1830">6:30pm</option>
-          <option value="1845">6:45pm</option>
-          <option value="1900">7:00pm</option>
-          <option value="1815">7:15pm</option>
-          <option value="1830">7:30pm</option>
-          <option value="1845">7:45pm</option>
-          <option value="2000">8:00pm</option>
-          <option value="2015">8:15pm</option>
-          <option value="2030">8:30pm</option>
-          <option value="2045">8:45pm</option>
-          <option value="2100">9:00pm</option>
-          <option value="2115">9:15pm</option>
-          <option value="2130">9:30pm</option>
-          <option value="2145">9:45pm</option>
-          <option value="2200">10:00pm</option>
-          </div>
-        </select>
+    <form action="/book" method="POST">
+      <div>
+        <h1 class="headingWrapper">Make a booking</h1>
         <div class="headingWrapper">
-          <h3>Number of People</h3>
+          <h3>Select a date</h3>
         </div>
         <div class="formItemWrapper">
-          <b-field>
-            <b-numberinput :min="1" placeholder="1"></b-numberinput>
-          </b-field>
+          <b-datepicker v-model="date" 
+            inline name="date"id="date">
+          </b-datepicker> 
+        </div>
+        <div class="headingWrapper">
+          <h3>Select a time</h3>
+        </div>
+        <div class="formItemWrapper">
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="time" id="time">
+            <div>
+            <option value="1700">5:00pm</option>
+            <option value="1715">5:15pm</option>
+            <option value="1730">5:30pm</option>
+            <option value="1745">5:45pm</option>
+            <option value="1800">6:00pm</option>
+            <option value="1815">6:15pm</option>
+            <option value="1830">6:30pm</option>
+            <option value="1845">6:45pm</option>
+            <option value="1900">7:00pm</option>
+            <option value="1815">7:15pm</option>
+            <option value="1830">7:30pm</option>
+            <option value="1845">7:45pm</option>
+            <option value="2000">8:00pm</option>
+            <option value="2015">8:15pm</option>
+            <option value="2030">8:30pm</option>
+            <option value="2045">8:45pm</option>
+            <option value="2100">9:00pm</option>
+            <option value="2115">9:15pm</option>
+            <option value="2130">9:30pm</option>
+            <option value="2145">9:45pm</option>
+            <option value="2200">10:00pm</option>
+            </div>
+          </select>
+          <div class="headingWrapper">
+            <h3>Number of People</h3>
+          </div>
+          <div class="formItemWrapper">
+            <b-field>
+              <b-numberinput :min="1" placeholder="1" name="number" id="number"></b-numberinput>
+            </b-field>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="drawer-footer">
-      <button type="button" class="btn btn-primary btn-fullwidth">Book</button>
-    </div>
+      <div class="drawer-footer">
+        <button type="button" class="btn btn-primary btn-fullwidth">Book</button>
+      </div>
+    </form>
     </b-sidebar>
 
     <b-button @click="open = true">Show</b-button>
