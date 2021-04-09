@@ -20,6 +20,7 @@ const seedDB = async () => {
 	for (menuItem of seedMenuItems) {
 		const newMenuItem = new MenuItem({
 			name: menuItem.name,
+			price: menuItem.price,
 			description: menuItem.description,
 			imageUrl: menuItem.imageUrl,
 		});
