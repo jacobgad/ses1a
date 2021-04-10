@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const MenuItem = require('../models/menuItems');
 const seedMenuItems = require('./menuItems');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/restaurant';
+const dbUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/restaurant';
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
