@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
-}
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -19,7 +17,7 @@ const adminRoutes = require('./routes/admin');
 const { noAdmin } = require('./middleware/admin');
 
 //Connect to Mongo Database
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.MONGO_URL;
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
