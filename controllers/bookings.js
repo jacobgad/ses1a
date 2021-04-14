@@ -1,7 +1,7 @@
 const Booking = require('../models/Booking');
 
 module.exports.renderBooking = (req, res) => {
-	res.render('booking/index');
+	res.render('bookings/index');
 };
 
 module.exports.registerBooking = async (req, res) => {

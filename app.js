@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 //Express Routes
 app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
-app.use('/booking', bookingRoutes);
+app.use('/bookings', bookingRoutes);
 
 app.get('/', (req, res) => {
 	res.render('home');
