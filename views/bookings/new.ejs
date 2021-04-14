@@ -1,9 +1,18 @@
 <% layout('/layouts/boilerplate') %>
+<main class="container mt-5">
+	<form action="/bookings" method="post" class="col-3 offset-4">
+		<input class="form-control" type="date" name="date" id="date" placeholder="date" />
+		<select class="form-select" aria-label="Default select example" name="time">
+			<option selected disabled>Time</option>
+			<option value="17:00">5:00 PM</option>
+			<option value="18:00">6:00 PM</option>
+			<option value="19:00">7:00 PM</option>
+			<option value="20:00">8:00 PM</option>
+			<option value="21:00">9:00 PM</option>
+		</select>
+		<input class="form-control" type="number" name="tables" id="tables" placeholder="tables" />
+		<button class="btn btn-primary" type="submit">Make Booking</button>
+	</form>
+</main>
 
-<form action="/bookings" method="post">
-	<input type="date" name="date" id="date" placeholder="date" />
-	<input type="text" name="time" id="time" placeholder="time" />
-	<input type="number" name="tables" id="tables" placeholder="tables" />
-
-  <button type="submit">Make Booking</button>
-</form>
+<%= JSON.stringify(bookedSlots) %> 

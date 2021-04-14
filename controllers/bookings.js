@@ -18,6 +18,18 @@ module.exports.registerBooking = async (req, res) => {
 	}
 };
 
-module.exports.renderNewBooking = (req, res) => {
-	res.render('bookings/new');
+module.exports.renderNewBooking = async (req, res) => {
+	const bookings = await Booking.find({ date: { $gte: Date.now(), $lte: Date.now() + 12096e5 } });
+	let bookedSlots = avalibility(bookings);
+	console.log(bookedSlots);
+	res.render('bookings/new', { bookings, bookedSlots });
 };
+
+//Helper Functions
+function avalibility(bookings) {
+	let avalibility = {};
+	for (let booking of bookings) {
+		avalibility[booking.date] = (avalibility[booking.date] || 0) + 1;
+	}
+	return avalibility;
+}
