@@ -22,7 +22,7 @@ module.exports.renderNewBooking = async (req, res) => {
 	const bookings = await Booking.find({ date: { $gte: Date.now(), $lte: Date.now() + 12096e5 } });
 	let bookedSlots = avalibility(bookings);
 	console.log(bookedSlots);
-	res.render('bookings/new', { bookings, bookedSlots });
+	res.render('bookings/new', { bookedSlots });
 };
 
 //Helper Functions
