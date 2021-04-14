@@ -21,7 +21,6 @@ module.exports.registerBooking = async (req, res) => {
 module.exports.renderNewBooking = async (req, res) => {
 	const bookings = await Booking.find({ date: { $gte: Date.now(), $lte: Date.now() + 12096e5 } });
 	let bookedSlots = avalibility(bookings);
-	console.log(bookedSlots);
 	res.render('bookings/new', { bookedSlots });
 };
 
@@ -29,7 +28,8 @@ module.exports.renderNewBooking = async (req, res) => {
 function avalibility(bookings) {
 	let avalibility = {};
 	for (let booking of bookings) {
-		avalibility[booking.date] = (avalibility[booking.date] || 0) + 1;
+		const { date } = booking;
+		avalibility[date] ? (avalibility[date] += 1) : (avalibility[date] = 1);
 	}
 	return avalibility;
 }
