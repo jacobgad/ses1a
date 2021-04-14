@@ -6,7 +6,8 @@ module.exports.renderBooking = (req, res) => {
 
 module.exports.registerBooking = async (req, res) => {
 	try {
-		const { date, tables } = req.body;
+		let { date, time, tables } = req.body;
+		date = new Date(date + ' ' + time);
 		const user = req.user.id;
 		const newBooking = new Booking({ date, tables, user });
 		await newBooking.save();
