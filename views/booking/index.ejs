@@ -48,6 +48,7 @@
             v-model="date"
             inline
             name="date"
+            v-model="minDate"
             id="date"
             :min-date="minDate"
             :max-date="maxDate"
@@ -58,7 +59,29 @@
           <h3>Select a time</h3>
         </div>
         <div class="formItemWrapper">
-          <b-timepicker v-model="time" inline></b-timepicker>
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="time" id="time">
+            <option value="1700">5:00pm</option>
+            <option value="1715">5:15pm</option>
+            <option value="1730">5:30pm</option>
+            <option value="1745">5:45pm</option>
+            <option value="1800">6:00pm</option>
+            <option value="1815">6:15pm</option>
+            <option value="1830">6:30pm</option>
+            <option value="1845">6:45pm</option>
+            <option value="1900">7:00pm</option>
+            <option value="1815">7:15pm</option>
+            <option value="1830">7:30pm</option>
+            <option value="1845">7:45pm</option>
+            <option value="2000">8:00pm</option>
+            <option value="2015">8:15pm</option>
+            <option value="2030">8:30pm</option>
+            <option value="2045">8:45pm</option>
+            <option value="2100">9:00pm</option>
+            <option value="2115">9:15pm</option>
+            <option value="2130">9:30pm</option>
+            <option value="2145">9:45pm</option>
+            <option value="2200">10:00pm</option>
+          </select>
         </div>
         <div class="headingWrapper">
           <h3>Number of People</h3>
@@ -68,7 +91,7 @@
             <b-numberinput
               :min="1"
               :max="6"
-              v-model=numValue
+              v-model="numValue"
               name="number"
               id="number"
             ></b-numberinput>
@@ -95,18 +118,27 @@
   <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
   <script>
-    const minDate = new Date();
+    const currentDate = new Date();
     var maxDate = new Date();
     maxDate.setDate(maxDate.getFullYear() + 1);
+
+    const minTime = new Date('17:00:00');
+    const maxTime = new Date('21:00:00');
+
+    setInterval(() => {
+      console.log(document.getElementById("date").value)
+    }, 2000)
 
     const app = new Vue({
       el: "#app",
       data: {
         open: false,
         date: new Date(),
-        minDate: minDate,
+        minDate: currentDate,
         maxDate: maxDate,
-        time: minDate,
+        minTime: minTime,
+        maxTime: maxTime,
+        incrementMinutes: 30,
         numValue: 1,
       },
     });
