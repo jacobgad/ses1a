@@ -57,6 +57,7 @@
 			<ul class="list-group list-group-flush">	
 				<li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
 				<!-- Filter Dropdown? -->
+				<!-- Sort by price, alphabet?-->
 				<p>
 					<button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 					  Filter Items
@@ -64,7 +65,25 @@
 				  </p>
 				  <div class="collapse" id="collapseExample">
 					<div class="card card-body text-dark">
-						Users should be able to filter by name, description text, and price.
+						<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Name</label>
+							<input type="text" class="form-control" id="name" placeholder="Burger">
+						</div>
+
+						<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Product Description</label>
+							<input type="text" class="form-control" id="name" placeholder="Entree">
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Price Range</label>
+							<div class="row-auto">
+								<input type="number" class="form-control" id="name" placeholder="Min Price">
+								<input type="number" class="form-control" id="name" placeholder="Max Price">
+							</div>
+
+						</div>
+
 					</div>
 				  </div>
 				<!-- Dropdown code end -->
