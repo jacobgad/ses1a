@@ -1,28 +1,28 @@
 <head>
   <style>
-    .b-sidebar .sidebar-content{
+    .b-sidebar .sidebar-content {
       width: 400px;
     }
 
-    .b-sidebar .formItemWrapper{
+    .b-sidebar .formItemWrapper {
       padding: 10px 0px 10px 10px;
     }
 
-    .b-sidebar .headingWrapper{
+    .b-sidebar .headingWrapper {
       padding: 0px 10px;
     }
 
-    .dropdown-item:active{
+    .dropdown-item:active {
       background-color: #e9ecef;
     }
 
     .drawer-footer {
       position: absolute;
       bottom: 0;
-      padding: 10px
+      padding: 10px;
     }
 
-    .btn-fullwidth{
+    .btn-fullwidth {
       width: 380px;
     }
   </style>
@@ -39,88 +39,95 @@
       v-model="open"
     >
     <form action="/book" method="POST">
-      <div>
         <h1 class="headingWrapper">Make a booking</h1>
         <div class="headingWrapper">
           <h3>Select a date</h3>
         </div>
         <div class="formItemWrapper">
-          <b-datepicker v-model="date" 
-            inline name="date"id="date">
-          </b-datepicker> 
+          <b-datepicker
+            v-model="date"
+            inline
+            name="date"
+            v-model="minDate"
+            id="date"
+            :min-date="minDate"
+            :max-date="maxDate"
+          >
+          </b-datepicker>
         </div>
         <div class="headingWrapper">
           <h3>Select a time</h3>
         </div>
         <div class="formItemWrapper">
           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="time" id="time">
-            <div>
-            <option value="1700">5:00pm</option>
-            <option value="1715">5:15pm</option>
-            <option value="1730">5:30pm</option>
-            <option value="1745">5:45pm</option>
-            <option value="1800">6:00pm</option>
-            <option value="1815">6:15pm</option>
-            <option value="1830">6:30pm</option>
-            <option value="1845">6:45pm</option>
-            <option value="1900">7:00pm</option>
-            <option value="1815">7:15pm</option>
-            <option value="1830">7:30pm</option>
-            <option value="1845">7:45pm</option>
-            <option value="2000">8:00pm</option>
-            <option value="2015">8:15pm</option>
-            <option value="2030">8:30pm</option>
-            <option value="2045">8:45pm</option>
-            <option value="2100">9:00pm</option>
-            <option value="2115">9:15pm</option>
-            <option value="2130">9:30pm</option>
-            <option value="2145">9:45pm</option>
-            <option value="2200">10:00pm</option>
-            </div>
+            <option value="17:00">5:00pm</option>
+            <option value="17:30">5:30pm</option>
+            <option value="18:00">6:00pm</option>
+            <option value="18:30">6:30pm</option>
+            <option value="19:00">7:00pm</option>
+            <option value="18:30">7:30pm</option>
+            <option value="20:00">8:00pm</option>
+            <option value="20:30">8:30pm</option>
           </select>
-          <div class="headingWrapper">
-            <h3>Number of People</h3>
-          </div>
-          <div class="formItemWrapper">
-            <b-field>
-              <b-numberinput :min="1" placeholder="1" name="number" id="number"></b-numberinput>
-            </b-field>
-          </div>
         </div>
-      </div>
-      <div class="drawer-footer">
-        <button type="button" class="btn btn-primary btn-fullwidth">Book</button>
-      </div>
-    </form>
+        <div class="headingWrapper">
+          <h3>Number of People</h3>
+        </div>
+        <div class="formItemWrapper">
+          <b-field>
+            <b-numberinput
+              :min="1"
+              :max="6"
+              v-model="numValue"
+              name="number"
+              id="number"
+            ></b-numberinput>
+          </b-field>
+        </div>
+        <div class="formItemWrapper">
+          <button type="button" class="btn btn-primary btn-fullwidth">
+            Book
+          </button>
+        </div>
+      </form>
     </b-sidebar>
 
     <b-button @click="open = true">Show</b-button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"
+  />
 
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
   <script>
-    const min = new Date();
-    min.setHours(17);
-    min.setMinutes(0);
+    const currentDate = new Date();
+    var maxDate = new Date();
+    maxDate.setDate(maxDate.getFullYear() + 1);
 
-    const max = new Date();
-    max.setHours(21);
-    max.setMinutes(0);
+    const minTime = new Date('17:00:00');
+    const maxTime = new Date('21:00:00');
+
+    setInterval(() => {
+      console.log(document.getElementById("date").value)
+    }, 2000)
 
     const app = new Vue({
-            el: '#app',
-            data: {
-              open: false,
-              date: new Date(),
-              minTime: min,
-              maxTime: max,
-              minutesGranularity: 15
-            }
-        })
+      el: "#app",
+      data: {
+        open: false,
+        date: new Date(),
+        minDate: currentDate,
+        maxDate: maxDate,
+        minTime: minTime,
+        maxTime: maxTime,
+        incrementMinutes: 30,
+        numValue: 1,
+      },
+    });
   </script>
 </body>
