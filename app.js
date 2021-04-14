@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
-}
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -17,6 +15,7 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
 const menuRoutes = require('./routes/menu');
+const { noAdmin } = require('./middleware/admin');
 
 //Connect to Mongo Database
 const dbUrl = process.env.MONGO_URL;
@@ -92,7 +91,7 @@ app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
 app.use('/menu', menuRoutes);
 
-app.get('/', (req, res) => {
+app.get('/', noAdmin, (req, res) => {
 	res.render('home');
 });
 
