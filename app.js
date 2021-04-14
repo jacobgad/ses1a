@@ -16,9 +16,10 @@ const methodOverride = require('method-override');
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
+const menuRoutes = require('./routes/menu');
 
 //Connect to Mongo Database
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.MONGO_URL;
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -89,6 +90,7 @@ app.use((req, res, next) => {
 //Express Routes
 app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
+app.use('/menu', menuRoutes);
 
 app.get('/', (req, res) => {
 	res.render('home');
