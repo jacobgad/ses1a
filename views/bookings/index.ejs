@@ -1,33 +1,7 @@
-<head>
-  <style>
-    .b-sidebar .sidebar-content {
-      width: 400px;
-    }
 
-    .b-sidebar .formItemWrapper {
-      padding: 10px 0px 10px 10px;
-    }
-
-    .b-sidebar .headingWrapper {
-      padding: 0px 10px;
-    }
-
-    .dropdown-item:active {
-      background-color: #e9ecef;
-    }
-
-    .drawer-footer {
-      position: absolute;
-      bottom: 0;
-      padding: 10px;
-    }
-
-    .btn-fullwidth {
-      width: 380px;
-    }
-  </style>
-</head>
 <% layout('/layouts/boilerplate') %>
+
+<link rel="stylesheet" href="css/bookings.css" />
 
 <body>
   <div id="app">
@@ -51,7 +25,7 @@
             v-model="minDate"
             id="date"
             :min-date="minDate"
-            :max-date="maxDate"
+            @input="dateChange"
           >
           </b-datepicker>
         </div>
@@ -112,9 +86,9 @@
     const minTime = new Date('17:00:00');
     const maxTime = new Date('21:00:00');
 
-    setInterval(() => {
-      console.log(document.getElementById("date").value)
-    }, 2000)
+    function onChange(){
+      console.log(app.Date)
+    }
 
     const app = new Vue({
       el: "#app",
@@ -122,12 +96,16 @@
         open: false,
         date: new Date(),
         minDate: currentDate,
-        maxDate: maxDate,
         minTime: minTime,
         maxTime: maxTime,
         incrementMinutes: 30,
-        numValue: 1,
+        numValue: 1
       },
+      methods: {
+        dateChange: function(date) {
+          console.log(date)
+        }
+      }
     });
   </script>
 </body>
