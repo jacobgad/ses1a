@@ -28,8 +28,8 @@ module.exports.renderNewBooking = async (req, res) => {
 function avalibility(bookings) {
 	let avalibility = {};
 	for (let booking of bookings) {
-		const { date } = booking;
-		avalibility[date] ? (avalibility[date] += 1) : (avalibility[date] = 1);
+		const { date, tables } = booking;
+		avalibility[date] ? (avalibility[date] += tables) : (avalibility[date] = tables);
 	}
 	return avalibility;
 }
