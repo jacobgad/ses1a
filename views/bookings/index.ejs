@@ -21,14 +21,15 @@
           id="restrauntClosedWarning"
           size="is-small"
         >
-          The Restraunt is no longer taking booking for today. You can only make booking for future dates.
+          The Restraunt is no longer taking booking for today. You can only make
+          booking for future dates.
         </b-message>
       </div>
       <form action="/book" method="POST">
         <div class="headingWrapper">
           <h3>Select a date</h3>
         </div>
-        <div class="formItemWrapper">
+        <div class="formItemWrapper" id="date-picker">
           <b-datepicker
             v-model="date"
             inline
@@ -36,6 +37,7 @@
             id="date"
             :min-date="minDate"
             @input="dateChange"
+            @change-month="monthChange"
             :day-names="dayNames"
           >
           </b-datepicker>
@@ -107,10 +109,18 @@
 
     const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
 
+    setTimeout(() => {
+      var prevMonthBtn = document.getElementsByClassName(
+        "pagination-previous"
+      )[0];
+      prevMonthBtn.classList.add("disabled");
+      prevMonthBtn.childNodes[0].classList.add("disabled");
+    });
+
     if (currentDate.getHours() > 18) {
       document.getElementById("restrauntClosedWarning").hidden = false;
       yesterday.setDate(yesterday.getDate() + 1);
-      dateModel.setDate(dateModel.getDate() + 1)
+      dateModel.setDate(dateModel.getDate() + 1);
     } else {
       timeSlots.forEach((timeSlot) => {
         if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
@@ -124,7 +134,7 @@
       data: {
         open: false,
         date: dateModel,
-        dayNames: ['S','M','T','W','T','F','S'],
+        dayNames: ["S", "M", "T", "W", "T", "F", "S"],
         minDate: yesterday,
         minTime: minTime,
         maxTime: maxTime,
@@ -151,6 +161,21 @@
                 document.getElementById(timeSlot.toString()).disabled = true;
               }
             });
+          }
+        },
+        monthChange: function (date) {
+          if (date <= currentDate.getMonth()) {
+            var prevMonthBtn = document.getElementsByClassName(
+              "pagination-previous"
+            )[0];
+            prevMonthBtn.classList.add("disabled");
+            prevMonthBtn.childNodes[0].classList.add("disabled");
+          } else {
+            var prevMonthBtn = document.getElementsByClassName(
+              "pagination-previous"
+            )[0];
+            prevMonthBtn.classList.remove("disabled");
+            prevMonthBtn.childNodes[0].classList.remove("disabled");
           }
         },
       },
