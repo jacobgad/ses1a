@@ -1,7 +1,16 @@
 const Booking = require('../models/Booking');
 
-module.exports.renderBooking = (req, res) => {
-	res.render('bookings/index');
+module.exports.renderBooking = async (req, res) => {
+	const bookings = await Booking.find({ date: { $gte: Date.now(), $lte: Date.now() + 12096e5 } });
+	let bookedSlots = avalibility(bookings);
+	res.render('bookings/index', { bookedSlots });
+};
+
+module.exports.jsonDateBookings = async (req, res) => {
+	let { date } = req.params;
+	date = new Date(date);
+	const bookings = await Booking.find({ date: { $gte: date.setHours(00, 00, 00), $lte: date.setHours(23, 59, 59) } });
+	res.json(avalibility(bookings));
 };
 
 module.exports.registerBooking = async (req, res) => {
