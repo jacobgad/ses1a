@@ -5,7 +5,7 @@
 <body>
   <div id="app">
     <b-sidebar
-      type="is-ligjt"
+      type="is-light"
       :fullheight="true"
       :overlay="true"
       :right="true"
@@ -21,7 +21,7 @@
           id="restrauntClosedWarning"
           size="is-small"
         >
-          The Restraunt is no longer taking booking for today. You can only make
+          The we are no longer taking booking for today. You can only make
           booking for future dates.
         </b-message>
       </div>
@@ -110,11 +110,18 @@
     const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
 
     setTimeout(() => {
-      var prevMonthBtn = document.getElementsByClassName(
-        "pagination-previous"
-      )[0];
+      var prevMonthBtn = document
+        .getElementById("date-picker")
+        .getElementsByClassName("pagination-previous")[0];
       prevMonthBtn.classList.add("disabled");
       prevMonthBtn.childNodes[0].classList.add("disabled");
+      var div = document.createElement("div");
+      div.setAttribute("id", "prevMonthBtnCon");
+      div.appendChild(prevMonthBtn);
+      document.getElementById("date-picker")
+        .getElementsByClassName("pagination field is-centered")[0]
+        .appendChild(div);
+      document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
     });
 
     if (currentDate.getHours() > 18) {
@@ -165,17 +172,19 @@
         },
         monthChange: function (date) {
           if (date <= currentDate.getMonth()) {
-            var prevMonthBtn = document.getElementsByClassName(
-              "pagination-previous"
-            )[0];
+            var prevMonthBtn = document
+              .getElementById("date-picker")
+              .getElementsByClassName("pagination-previous")[0];
             prevMonthBtn.classList.add("disabled");
             prevMonthBtn.childNodes[0].classList.add("disabled");
+            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
           } else {
-            var prevMonthBtn = document.getElementsByClassName(
-              "pagination-previous"
-            )[0];
+            var prevMonthBtn = document
+              .getElementById("date-picker")
+              .getElementsByClassName("pagination-previous")[0];
             prevMonthBtn.classList.remove("disabled");
             prevMonthBtn.childNodes[0].classList.remove("disabled");
+            document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
           }
         },
       },
