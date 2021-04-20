@@ -7,13 +7,13 @@ module.exports.renderIndex = (req, res) => {
 
 module.exports.renderFirstAdmin = async (req, res) => {
 	const admin = await User.findOne({ role: 'admin' });
-	if (admin) return res.redirect('/admin');;
+	if (admin) return res.redirect('/admin');
 	res.render('admin/new');
 };
 
 module.exports.firstAdmin = async (req, res) => {
 	const admin = await User.findOne({ role: 'admin' });
-	if (admin) return res.redirect('/admin');;
+	if (admin) return res.redirect('/admin');
 	try {
 		const { email, username, password } = req.body;
 		const user = new User({ email, username, role: 'admin' });
@@ -38,7 +38,11 @@ module.exports.renderStaff = async (req, res) => {
 module.exports.newStaff = async (req, res) => {
 	try {
 		const { email, username, password, role } = req.body;
-		const user = new User({ email, username, role: role });
+		if (role === 'admin' && req.user.role !== 'admin') {
+			req.flash('error', 'You do not have permission to do that');
+			return res.redirect('/admin/staff');
+		}
+		const user = new User({ email, username, role });
 		await User.register(user, password);
 		req.flash('success', `${username} has been added as ${role}`);
 		res.redirect('/admin/staff');
@@ -51,9 +55,16 @@ module.exports.newStaff = async (req, res) => {
 
 module.exports.updateStaff = async (req, res) => {
 	try {
-		const { id } = req.body;
-		const { newUsername, email, password, role } = req.body;
-		const user = await User.findByIdAndUpdate(id, { username: newUsername, email: email, role: role });
+		const { id, newUsername, email, password, role } = req.body;
+		if (role === 'admin' && req.user.role !== 'admin') {
+			req.flash('error', 'You do not have permission to do that');
+			return res.redirect('/admin/staff');
+		}
+		const user = await User.findByIdAndUpdate(
+			id,
+			{ username: newUsername, email: email, role: role },
+			{ runValidators: true }
+		);
 		if (password) {
 			await user.setPassword(password);
 		}
