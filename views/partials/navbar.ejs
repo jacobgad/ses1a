@@ -1,4 +1,4 @@
-<% if (!currentUser) { %>
+<!-- <% if (!currentUser) { %>
 	<a class="btn btn-primary" href="/login">login</a>
 	<a class="btn btn-primary" href="/register">register</a>
 	<% } else { %> <% if (currentUser.role !== 'user') { %>
@@ -8,4 +8,40 @@
 	<a class="btn btn-primary" href="/logout">logout</a>
 	<% } %>
 	<a class="btn btn-primary" href="/contact">contact us</a>
-	<a class="btn btn-primary" href="">Menu</a>
+	<a class="btn btn-primary" href="">Menu</a> -->
+
+<nav class="navbar navbar-expand-lg navar-light bg-primary">
+	<div class="container-fluid">
+		<a class="navbar-brand text-light"> eRestaurant </a>
+
+		<!--Toggle button that shows up when the screen is small enough-->
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarContent"
+			aria-controls="navbarContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon bg-light"></span>
+		</button>
+
+		<!--This is the content that is toggled with the toggle button-->
+		<div class="collapse navbar-collapse" id="navbarContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link text-light" href="#">Menu</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link text-light" href="#">About Us</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link text-light" href="#">Contact Us</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
