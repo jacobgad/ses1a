@@ -14,6 +14,7 @@ const methodOverride = require('method-override');
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
+const menuRoutes = require('./routes/menu');
 const { noAdmin } = require('./middleware/admin');
 
 //Connect to Mongo Database
@@ -88,6 +89,7 @@ app.use((req, res, next) => {
 //Express Routes
 app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
+app.use('/menu', menuRoutes);
 
 app.get('/', noAdmin, (req, res) => {
 	res.render('home');
