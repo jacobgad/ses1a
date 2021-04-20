@@ -1,47 +1,31 @@
-<!-- <% if (!currentUser) { %>
-	<a class="btn btn-primary" href="/login">login</a>
-	<a class="btn btn-primary" href="/register">register</a>
-	<% } else { %> <% if (currentUser.role !== 'user') { %>
-	<a class="btn btn-primary" href="/admin">Admin</a>
-	<% } %>
-	<a class="btn btn-primary" href="/users/<%= currentUser.username %>/edit"><%= currentUser.username %> </a>
-	<a class="btn btn-primary" href="/logout">logout</a>
-	<% } %>
-	<a class="btn btn-primary" href="/contact">contact us</a>
-	<a class="btn btn-primary" href="">Menu</a> -->
-
-<nav class="navbar navbar-expand-lg navar-light bg-primary">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
 	<div class="container-fluid">
-		<a class="navbar-brand text-light"> eRestaurant </a>
-
-		<!--Toggle button that shows up when the screen is small enough-->
+		<a class="navbar-brand" href="#">Restaurant</a>
 		<button
 			class="navbar-toggler"
 			type="button"
 			data-bs-toggle="collapse"
-			data-bs-target="#navbarContent"
-			aria-controls="navbarContent"
+			data-bs-target="#navbarNavAltMarkup"
+			aria-controls="navbarNavAltMarkup"
 			aria-expanded="false"
 			aria-label="Toggle navigation"
 		>
-			<span class="navbar-toggler-icon bg-light"></span>
+			<span class="navbar-toggler-icon"></span>
 		</button>
-
-		<!--This is the content that is toggled with the toggle button-->
-		<div class="collapse navbar-collapse" id="navbarContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link text-light" href="#">Menu</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link text-light" href="#">About Us</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link text-light" href="#">Contact Us</a>
-				</li>
-			</ul>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-link active" href="/">Home</a>
+				<a class="nav-link" href="/menu">Menu</a>
+				<a class="nav-link" href="/bookings">Bookings</a>
+			</div>
+			<div class="navbar-nav ms-auto">
+				<% if(!currentUser) { %>
+				<a class="nav-link" href="/login">Login</a>
+				<a class="nav-link" href="/register">Registrer</a>
+				<% } else { %>
+				<a class="nav-link" href="/logout">Logout</a>
+				<% } %>
+			</div>
 		</div>
 	</div>
 </nav>
