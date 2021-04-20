@@ -1,61 +1,100 @@
-<% layout('/layouts/boilerplate') %>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Restaurant</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
 
-<body>
-	<h1>Restaurant</h1>
-	<% if (!currentUser) { %>
-	<a class="btn btn-primary" href="/login">login</a>
-	<a class="btn btn-primary" href="/register">register</a>
-	<% } else { %> <% if (currentUser.role !== 'user') { %>
-	<a class="btn btn-primary" href="/admin">Admin</a>
-	<% } %>
-	<a class="btn btn-primary" href="/users/<%= currentUser.username %>/edit"><%= currentUser.username %> </a>
-	<a class="btn btn-primary" href="/logout">logout</a>
-	<% } %>
-	<a class="btn btn-primary" href="/contact">contact us</a>
-	<a class="btn btn-primary" href="">Menu</a>
+		<style>
+			body {
+				background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<%- include('partials/navbar') %>
 
-	<%- include('partials/navbar') %>
+		<div class="container gap-6">
+			<div class="row"></div>
 
-	<div class="container gap-6">
-		<div class="row"></div>
-		<div class="row mt-3">
-			<div class="col-md-6">
-				<div class="card mt-3 p-6 col-py-6" style="width: 25rem">
-					<form action="/login" method="POST" class="needs-validation">
-						<div class="card-body" style="height: 25rem">
-							<div class="mb-3">
-								<h5 class="card-title">Welcome Back!</h5>
-							</div>
+			<!--
 
-							<div class="mb-3">
-								<input class="form-control" type="text" name="username" id="username" placeholder="Username" required />
-								<div class="invalid-feedback">Enter your username.</div>
-							</div>
+				Backend Content
 
-							<div class="mb-3">
-								<input type="password" class="form-control" id="inputPassword" placeholder="Password" required />
-								<div class="invalid-feedback">Enter your password.</div>
-							</div>
 
-							<div class="mb-3">
-								<a href="forgotpassword.ejs">Forgot Password?</a>
-							</div>
+				<h1>Login</h1>
+					<form action="/login" method="POST" class="needs-validation" novalidate>
+						<div class="mb-3">
+							<label class="form-label" for="username">Username</label>
+							<input class="form-control" type="text" name="username" id="username" required />
+							<div class="invalid-feedback">Please enter your username.</div>
 						</div>
-
-						<div class="card-footer">
-							<div class="row-p3">
-								<button type="submit" class="btn btn-primary">Log In</button>
-							</div>
-
-							<div class="row-py-6"></div>
-
-							<br />
-
-							<p>Don't have an account? <a href="register.ejs">Click Here</a></p>
+						<div class="mb-3">
+							<label class="form-label" for="password">Password</label>
+							<input class="form-control" type="password" name="password" id="password" required />
+							<div class="invalid-feedback">Please enter your password</div>
 						</div>
+						<button class="btn btn-success" type="submit">login</button>
+						<a class="btn btn-secondary" href="/forgot">Forgot Password</a>
 					</form>
+			-->
+
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<div class="card mt-3 p-6 col-py-6" style="width: 25rem">
+						<form action="/login" method="POST" class="needs-validation">
+							<div class="card-body" style="height: 25rem">
+								<div class="mb-3">
+									<h5 class="card-title">Welcome Back!</h5>
+								</div>
+
+								<div class="mb-3">
+									<input
+										class="form-control"
+										type="text"
+										name="username"
+										id="username"
+										placeholder="Username"
+										required
+									/>
+									<div class="invalid-feedback">Enter your username.</div>
+								</div>
+
+								<div class="mb-3">
+									<input type="password" class="form-control" id="inputPassword" placeholder="Password" required />
+									<div class="invalid-feedback">Enter your password.</div>
+								</div>
+
+								<div class="mb-3">
+									<a href="forgotpassword.ejs">Forgot Password?</a>
+								</div>
+							</div>
+
+							<div class="card-footer">
+								<div class="row-p3">
+									<button type="submit" class="btn btn-primary">Log In</button>
+								</div>
+
+								<div class="row-py-6"></div>
+
+								<br />
+
+								<p>Don't have an account? <a href="register.ejs">Click Here</a></p>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
+</html>
