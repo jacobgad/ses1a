@@ -7,6 +7,6 @@ router.route('/').get(renderMenu);
 
 
 router.route('/filter')
-	.
+
 
 module.exports = router;
