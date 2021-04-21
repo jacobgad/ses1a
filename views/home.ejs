@@ -1,15 +1,46 @@
-<% layout('/layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="css/home.css" />
 
-<body>
-	<h1>Restaurant</h1>
-	<% if (!currentUser) { %>
-	<a class="btn btn-primary" href="/login">login</a>
-	<a class="btn btn-primary" href="/register">register</a>
-	<% } else { %>
-	<% if (currentUser.role !== 'user') { %>
-	<a class="btn btn-primary" href="/admin">Admin</a> 
-	<% } %> 
-	<a class="btn btn-primary" href="/users/<%= currentUser.username %>/edit"><%= currentUser.username %> </a>
-	<a class="btn btn-primary" href="/logout">logout</a>
-	<% } %>
-</body>
+<div class="container gap-6">
+	<div class="row"></div>
+
+	<div class="row mt-3">
+		<div class="col-md-6">
+			<div class="card mt-3 p-6 col-py-6" style="width: 25rem">
+				<form action="/login" method="POST" class="needs-validation">
+					<div class="card-body" style="height: 25rem">
+						<div class="mb-3">
+							<h5 class="card-title">Welcome Back!</h5>
+						</div>
+
+						<div class="mb-3">
+							<input class="form-control" type="text" name="username" id="username" placeholder="Username" required />
+							<div class="invalid-feedback">Enter your username.</div>
+						</div>
+
+						<div class="mb-3">
+							<input type="password" class="form-control" id="inputPassword" placeholder="Password" required />
+							<div class="invalid-feedback">Enter your password.</div>
+						</div>
+
+						<div class="mb-3">
+							<a href="forgotpassword.ejs">Forgot Password?</a>
+						</div>
+					</div>
+
+					<div class="card-footer">
+						<div class="row-p3">
+							<button type="submit" class="btn btn-primary">Log In</button>
+						</div>
+
+						<div class="row-py-6"></div>
+
+						<br />
+
+						<p>Don't have an account? <a href="register.ejs">Click Here</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

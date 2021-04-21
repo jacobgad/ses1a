@@ -91,6 +91,10 @@ app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
 app.use('/menu', menuRoutes);
 
+app.get('/contact', (req, res) => {
+	res.render('contact');
+});
+
 app.get('/', noAdmin, (req, res) => {
 	res.render('home');
 });
