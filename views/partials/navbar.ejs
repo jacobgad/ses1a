@@ -22,8 +22,9 @@
 				<% if(!currentUser) { %>
 				<a class="nav-link" href="/login">Login</a>
 				<a class="nav-link" href="/register">Registrer</a>
-				<% } else { %>
-          <%  %> 
+				<% } else { %> <% if (currentUser.role !== 'user') { %>
+				<a class="nav-link" href="/admin">Admin</a>
+				<% } %>
 				<a class="nav-link" href="/users/<%=currentUser.username%>/edit "><%= currentUser.username %> </a>
 				<a class="nav-link" href="/logout">Logout</a>
 				<% } %>
