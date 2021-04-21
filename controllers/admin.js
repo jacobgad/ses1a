@@ -91,6 +91,7 @@ module.exports.renderDiscounts = async (req, res) => {
 };
 
 module.exports.newDiscount = async (req, res) => {
+	try {
 	const { code, percentage } = req.body;
 	// const coup = coupGen();
 	const discount = new Discount({
@@ -99,6 +100,10 @@ module.exports.newDiscount = async (req, res) => {
 	});
 	await discount.save();
 	res.redirect('/admin/discounts');
+	}catch (e) {
+		req.flash('error', e.message);
+		res.redirect('/admin/discounts');
+	}
 };
 
 module.exports.deleteDiscount = async (req, res) => {
