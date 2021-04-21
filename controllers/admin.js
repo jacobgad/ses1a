@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Discount = require('../models/discount');
 const Emails = require('../controllers/emails');
 
 module.exports.renderIndex = (req, res) => {
@@ -82,4 +83,27 @@ module.exports.deleteStaff = async (req, res) => {
 	await User.findByIdAndRemove({ _id: id });
 	req.flash('success', 'Successfully deleted user');
 	res.redirect('/admin/staff');
+};
+
+module.exports.renderDiscounts = async (req, res) => {
+	const discounts = await Discount.find({});
+	res.render('admin/discount', { discounts });
+};
+
+module.exports.newDiscount = async (req, res) => {
+	const { code, percentage } = req.body;
+	// const coup = coupGen();
+	const discount = new Discount({
+		code: code,
+		amount: percentage,
+	});
+	await discount.save();
+	res.redirect('/admin/discounts');
+};
+
+module.exports.deleteDiscount = async (req, res) => {
+	const { id } = req.body;
+	await Discount.findByIdAndRemove({ _id: id });
+	req.flash('success', 'Successfully deleted discount');
+	res.redirect('/admin/discounts');
 };
