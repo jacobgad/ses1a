@@ -3,6 +3,7 @@
 <h1>Discount Page</h1>
 <form action="/discount" method="POST">
     <div>
+        <p><% console.log("hit 1") %></p>
         <input type="text" name="code" placeholder="discount code">
         <input type="number" name="percentage" placeholder="% amount">
         <button type="submit" class="btn btn-success">apply</button>
@@ -10,9 +11,41 @@
 </form>
 
 <div>
-    <h1> <%= discounts %> </h1>
-    <label class="form-label" for="code">Username</label>
-    <label><%=discounts.code %></label>
+    <ul>
+        <% for (discount of discounts) { %>
+        <li>
+            code: <%= discount.code %>, amount: <%= discount.amount + "%" %>
+            <form action="/discount?_method=DELETE " method="POST">
+                <input type="hidden" name="id" value=<%= discount.code %> >
+                <button type="submit" class="btn btn-danger">Delete <%= discount.code %> </button>
+            </form>
+        </li>
+        <% } %>
+    </ul>
+    <label><%=discounts[1].amount + "%" %></label>
 
-</div>
+
+
+
+
+<!--    <label>-->
+<!--        <script>-->
+<!--            let fakeNumber = 50;-->
+<!--            fakeNumber * ( <%= discounts[1].amount%>)-->
+<!--        </script>-->
+<!--    </label>-->
+
+
+
+
+<!--</div>-->
+
+<!--<form action="/discount?_method=DELETE " method="POST">-->
+<!--    <input type="hidden" name="code" value=<%= discount.code %> >-->
+<!--    <button-->
+<!--            type="submit" class="btn btn-danger">Delete <%= discount.code %>-->
+<!--    </button>-->
+<!--    <p><% console.log("hit 2") %></p>-->
+<!--</form>-->
+
 

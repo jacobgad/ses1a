@@ -28,6 +28,10 @@ const router = express.Router();
 const Discount = require('../models/discount');
 const coupGen = require('../models/codeGen');
 
+const admin = require('../controllers/admin');
+const { isNotUser } = require('../middleware/admin')
+const { isLoggedIn } = require('../middleware/users');
+
 router.get('/', async (req, res) => {
     const discounts = await Discount.find({});
     res.render('admin/discount', { discounts });
@@ -43,5 +47,16 @@ router.post('/', async (req, res) => {
     await discount.save();
     res.redirect('/discount');
 })
+
+// router.route('/')
+//     .get(isLoggedIn, isNotUser, admin.renderIndex)
+//     .post(admin.firstAdmin);
+//
+// router.get('/new', admin.renderFirstAdmin);
+//
+// router.delete(admin.deleteDiscount)
+
+// router.route('/discount')
+//     .delete(isLoggedIn, isNotUser, admin.deleteDiscount)
 
 module.exports = router;

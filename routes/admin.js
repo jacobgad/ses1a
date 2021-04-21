@@ -17,4 +17,8 @@ router.route('/staff')
 	.put(isLoggedIn, isNotUser, admin.updateStaff)
 	.delete(isLoggedIn, isNotUser, admin.deleteStaff);
 
+router.route('/discount')
+    .delete(admin.deleteDiscount)
+
+
 module.exports = router;
