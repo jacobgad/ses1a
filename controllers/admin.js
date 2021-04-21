@@ -94,12 +94,12 @@ module.exports.newDiscount = async (req, res) => {
 		amount: percentage,
 	});
 	await discount.save();
-	res.redirect('/discounts');
+	res.redirect('/admin/discounts');
 };
 
 module.exports.deleteDiscount = async (req, res) => {
 	const { id } = req.body;
 	await Discount.findByIdAndRemove({ _id: id });
 	req.flash('success', 'Successfully deleted discount');
-	res.redirect('/discount');
+	res.redirect('/admin/discounts');
 };

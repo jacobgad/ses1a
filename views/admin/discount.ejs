@@ -1,9 +1,8 @@
 <% layout('/layouts/boilerplate') %>
 
 <h1>Discount Page</h1>
-<form action="/discount" method="POST">
-    <div>
-        <p><% console.log("hit 1") %></p>
+<form action="/admin/discounts" method="POST">
+    <div class="inline-block">
         <input class="form-control" type="text" name="code" placeholder="discount code">
         <input class="form-control" type="number" name="percentage" placeholder="% amount">
         <button type="submit" class="btn btn-success">apply</button>
@@ -15,7 +14,7 @@
         <% for (discount of discounts) { %>
         <li>
             code: <%= discount.code %>, amount: <%= discount.amount %>%
-            <form action="/admin/discounts?_method=DELETE " method="POST">
+            <form action="/admin/discounts?_method=DELETE" method="POST">
                 <input type="hidden" name="id" value=<%= discount.id %> >
                 <button type="submit" class="btn btn-danger">Delete <%= discount.code %> </button>
             </form>
