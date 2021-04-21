@@ -1,3 +1,11 @@
+body {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('https://img.theculturetrip.com/1440x/smart/wp-content/uploads/2020/11/2br19p4.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
 .btn-circle {
 	width: 36px;
 	height: 36px;
@@ -6,27 +14,16 @@
 	text-align: center;
 	font-size: 12px;
 	line-height: 1.42857;
-  }
-  
-  body {
-	background-image: url(https://img.theculturetrip.com/1440x/smart/wp-content/uploads/2020/11/2br19p4.jpg);
-	background-repeat: no-repeat;
-	width: 100%;
-    align-items : center;
-    height: 100%;
-    background-position: center center;
-	background-size: cover;
+}
 
-  }
-  
-  .lr-opacity {
+.lr-opacity {
 	background: rgba(255, 255, 255, 0.8);
-  }
-  
-  .active-page {
+}
+
+.active-page {
 	background: rgba(150, 150, 150, 0.35);
-  }
-  
-  .mid-opacity {
+}
+
+.mid-opacity {
 	background: rgba(112, 112, 112, 0.8);
-  }
+}
