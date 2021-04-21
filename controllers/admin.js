@@ -39,7 +39,7 @@ module.exports.renderStaff = async (req, res) => {
 module.exports.newStaff = async (req, res) => {
 	try {
 		const { email, username, password, role } = req.body;
-		if ((role === 'admin' && req.user.role !== 'admin')) {
+		if (role === 'admin' && req.user.role !== 'admin') {
 			req.flash('error', 'You do not have permission to do that');
 			return res.redirect('/admin/staff');
 		}
@@ -57,7 +57,7 @@ module.exports.newStaff = async (req, res) => {
 module.exports.updateStaff = async (req, res) => {
 	try {
 		const { id, newUsername, email, password, role } = req.body;
-		if ((role === 'admin' && req.user.role !== 'admin')) {
+		if (role === 'admin' && req.user.role !== 'admin') {
 			req.flash('error', 'You do not have permission to do that');
 			return res.redirect('/admin/staff');
 		}
@@ -79,6 +79,22 @@ module.exports.deleteStaff = async (req, res) => {
 	await User.findByIdAndRemove({ _id: id });
 	req.flash('success', 'Successfully deleted user');
 	res.redirect('/admin/staff');
+};
+
+module.exports.renderDiscounts = async (req, res) => {
+	const discounts = await Discount.find({});
+	res.render('admin/discount', { discounts });
+};
+
+module.exports.newDiscount = async (req, res) => {
+	const { code, percentage } = req.body;
+	// const coup = coupGen();
+	const discount = new Discount({
+		code: code,
+		amount: percentage,
+	});
+	await discount.save();
+	res.redirect('/discounts');
 };
 
 module.exports.deleteDiscount = async (req, res) => {

@@ -14,38 +14,11 @@
     <ul>
         <% for (discount of discounts) { %>
         <li>
-            code: <%= discount.code %>, amount: <%= discount.amount + "%" %>
-            <form action="/discount?_method=DELETE " method="POST">
-                <input type="hidden" name="id" value=<%= discount.code %> >
+            code: <%= discount.code %>, amount: <%= discount.amount %>%
+            <form action="/admin/discounts?_method=DELETE " method="POST">
+                <input type="hidden" name="id" value=<%= discount.id %> >
                 <button type="submit" class="btn btn-danger">Delete <%= discount.code %> </button>
             </form>
         </li>
         <% } %>
     </ul>
-    <label><%=discounts[1].amount + "%" %></label>
-
-
-
-
-
-<!--    <label>-->
-<!--        <script>-->
-<!--            let fakeNumber = 50;-->
-<!--            fakeNumber * ( <%= discounts[1].amount%>)-->
-<!--        </script>-->
-<!--    </label>-->
-
-
-
-
-<!--</div>-->
-
-<!--<form action="/discount?_method=DELETE " method="POST">-->
-<!--    <input type="hidden" name="code" value=<%= discount.code %> >-->
-<!--    <button-->
-<!--            type="submit" class="btn btn-danger">Delete <%= discount.code %>-->
-<!--    </button>-->
-<!--    <p><% console.log("hit 2") %></p>-->
-<!--</form>-->
-
-
