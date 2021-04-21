@@ -2,23 +2,20 @@
 
 <h1>Discount Page</h1>
 <form action="/admin/discounts" method="POST">
-    <div class="input-group">
+    <div class="input-group mb-5">
         <input class="form-control" type="text" name="code" placeholder="discount code">
         <input class="form-control" type="number" name="percentage" placeholder="% amount">
         <button type="submit" class="btn btn-success">apply</button>
     </div>
 </form>
 
-<div>
-    <ul>
-        <% for (discount of discounts) { %>
-        <li>
-            code: <%= discount.code %>, amount: <%= discount.amount %>%
-            <form action="/admin/discounts?_method=DELETE" method="POST">
-                <input type="hidden" name="id" value=<%= discount.id %> >
-                <button type="submit" class="btn btn-danger">Delete <%= discount.code %> </button>
-            </form>
-        </li>
-        <% } %>
-    </ul>
-</div>
+<% for (discount of discounts) { %>
+    <form action="/admin/discounts?_method=DELETE" method="POST"> 
+        <div class="input-group mb-2">
+            <input class="form-control" type="text" name="code" value="<%= discount.code %>" disabled>
+            <input class="form-control" type="text" name="percentage" value="<%= discount.amount%>%" disabled>
+            <input type="hidden" name="id" value="<%= discount.id %>">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+<% } %> 
