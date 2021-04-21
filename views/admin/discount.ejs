@@ -1,21 +1,22 @@
 <% layout('/layouts/boilerplate') %>
+<div class="container mt-5">
+	<h1>Discount Page</h1>
+	<form action="/admin/discounts" method="POST">
+		<div class="input-group mb-5">
+			<input class="form-control" type="text" name="code" placeholder="discount code" />
+			<input class="form-control" type="number" name="percentage" placeholder="% amount" />
+			<button type="submit" class="btn btn-success">apply</button>
+		</div>
+	</form>
 
-<h1>Discount Page</h1>
-<form action="/admin/discounts" method="POST">
-    <div class="input-group mb-5">
-        <input class="form-control" type="text" name="code" placeholder="discount code">
-        <input class="form-control" type="number" name="percentage" placeholder="% amount">
-        <button type="submit" class="btn btn-success">apply</button>
-    </div>
-</form>
-
-<% for (discount of discounts) { %>
-    <form action="/admin/discounts?_method=DELETE" method="POST"> 
-        <div class="input-group mb-2">
-            <input class="form-control" type="text" name="code" value="<%= discount.code %>" disabled>
-            <input class="form-control" type="text" name="percentage" value="<%= discount.amount%>%" disabled>
-            <input type="hidden" name="id" value="<%= discount.id %>">
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </div>
-    </form>
-<% } %> 
+	<% for (discount of discounts) { %>
+	<form action="/admin/discounts?_method=DELETE" method="POST">
+		<div class="input-group mb-2">
+			<input class="form-control" type="text" name="code" value="<%= discount.code %>" disabled />
+			<input class="form-control" type="text" name="percentage" value="<%= discount.amount%>%" disabled />
+			<input type="hidden" name="id" value="<%= discount.id %>" />
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</div>
+	</form>
+	<% } %>
+</div>
