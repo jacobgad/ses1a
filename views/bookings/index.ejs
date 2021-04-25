@@ -77,9 +77,7 @@
           </b-field>
         </div>
         <div class="formItemWrapper">
-          <button type="button" class="btn btn-primary btn-fullwidth">
-            Book
-          </button>
+          <b-button @click="submitForm" type="is-primary">Book</b-button>
         </div>
       </form>
     </b-sidebar>
@@ -131,7 +129,7 @@
     } else {
       timeSlots.forEach((timeSlot) => {
         if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
-          document.getElementById(timeSlot.toString()).disabled = true;
+          document.getElementById(timeSlot.toString()).style.visibility = "hidden";
         }
       });
     }
@@ -165,7 +163,7 @@
                 timeSlot <
                 currentDate.getHours() + "" + currentDate.getMinutes()
               ) {
-                document.getElementById(timeSlot.toString()).disabled = true;
+                document.getElementById(timeSlot.toString()).style.visibility = "hidden";
               }
             });
           }
@@ -177,7 +175,7 @@
               .getElementsByClassName("pagination-previous")[0];
             prevMonthBtn.classList.add("disabled");
             prevMonthBtn.childNodes[0].classList.add("disabled");
-            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
+            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed";
           } else {
             var prevMonthBtn = document
               .getElementById("date-picker")
@@ -187,6 +185,20 @@
             document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
           }
         },
+        submitForm: function() {
+          let req = new XMLHttpRequest();
+
+          const bookingPost = {
+            "date": date,
+            "time": document.getElementById("time").value,
+            "tables": numValue,
+          } 
+
+          req.open("post", url + "bookings");
+          req.setRequestHeader('Content-Type', 'application/json');
+          req.send(JSON.stringify(bookingPost))
+
+        }
       },
     });
   </script>
