@@ -1,0 +1,205 @@
+<% layout('/layouts/boilerplate') %>
+
+<link rel="stylesheet" href="css/bookings.css" />
+
+<body>
+  <div id="app">
+    <b-sidebar
+      type="is-light"
+      :fullheight="true"
+      :overlay="true"
+      :right="true"
+      v-model="open"
+    >
+      <h1 class="headingWrapper">Make a booking</h1>
+      <div>
+        <b-message
+          title="Warning"
+          type="is-warning"
+          aria-close-label="Close message"
+          hidden="true"
+          id="restrauntClosedWarning"
+          size="is-small"
+        >
+          The we are no longer taking booking for today. You can only make
+          booking for future dates.
+        </b-message>
+      </div>
+      <form action="/book" method="POST">
+        <div class="headingWrapper">
+          <h3>Select a date</h3>
+        </div>
+        <div class="formItemWrapper" id="date-picker">
+          <b-datepicker
+            v-model="date"
+            inline
+            name="date"
+            id="date"
+            :min-date="minDate"
+            @input="dateChange"
+            @change-month="monthChange"
+            :day-names="dayNames"
+          >
+          </b-datepicker>
+        </div>
+        <div class="headingWrapper">
+          <h3>Select a time</h3>
+        </div>
+        <div class="formItemWrapper">
+          <select
+            class="form-select form-select-lg mb-3"
+            aria-label=".form-select-lg example"
+            name="time"
+            id="time"
+          >
+            <option id="1700" value="17:00:00">5:00pm</option>
+            <option id="1730" value="17:30:00">5:30pm</option>
+            <option id="1800" value="18:00:00">6:00pm</option>
+            <option id="1830" value="18:30:00">6:30pm</option>
+            <option id="1900" value="19:00:00">7:00pm</option>
+            <option id="1930" value="18:30:00">7:30pm</option>
+            <option id="2000" value="20:00:00">8:00pm</option>
+            <option id="2030" value="20:30:00">8:30pm</option>
+          </select>
+        </div>
+        <div class="headingWrapper">
+          <h3>Number of People</h3>
+        </div>
+        <div class="formItemWrapper">
+          <b-field>
+            <b-numberinput
+              :min="1"
+              :max="6"
+              v-model="numValue"
+              name="number"
+              id="number"
+            ></b-numberinput>
+          </b-field>
+        </div>
+        <div class="formItemWrapper">
+          <b-button @click="submitForm" type="is-primary">Book</b-button>
+        </div>
+      </form>
+    </b-sidebar>
+
+    <b-button @click="open = true">Show</b-button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"
+  />
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+
+  <script>
+    const currentDate = new Date();
+
+    let dateModel = currentDate;
+
+    let yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const minTime = new Date("17:00:00");
+    const maxTime = new Date("21:00:00");
+
+    const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
+
+    setTimeout(() => {
+      var prevMonthBtn = document
+        .getElementById("date-picker")
+        .getElementsByClassName("pagination-previous")[0];
+      prevMonthBtn.classList.add("disabled");
+      prevMonthBtn.childNodes[0].classList.add("disabled");
+      var div = document.createElement("div");
+      div.setAttribute("id", "prevMonthBtnCon");
+      div.appendChild(prevMonthBtn);
+      document.getElementById("date-picker")
+        .getElementsByClassName("pagination field is-centered")[0]
+        .appendChild(div);
+      document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
+    });
+
+    if (currentDate.getHours() > 18) {
+      document.getElementById("restrauntClosedWarning").hidden = false;
+      yesterday.setDate(yesterday.getDate() + 1);
+      dateModel.setDate(dateModel.getDate() + 1);
+    } else {
+      timeSlots.forEach((timeSlot) => {
+        if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
+          document.getElementById(timeSlot.toString()).style.visibility = "hidden";
+        }
+      });
+    }
+
+    const app = new Vue({
+      el: "#app",
+      data: {
+        open: false,
+        date: dateModel,
+        dayNames: ["S", "M", "T", "W", "T", "F", "S"],
+        minDate: yesterday,
+        minTime: minTime,
+        maxTime: maxTime,
+        incrementMinutes: 30,
+        numValue: 1,
+      },
+      methods: {
+        dateChange: function (date) {
+          const dayMonthYear =
+            date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+          const currentDayMonthYear =
+            currentDate.getDate() +
+            "/" +
+            currentDate.getMonth() +
+            "/" +
+            currentDate.getFullYear();
+
+          if (dayMonthYear == currentDayMonthYear) {
+            timeSlots.forEach((timeSlot) => {
+              if (
+                timeSlot <
+                currentDate.getHours() + "" + currentDate.getMinutes()
+              ) {
+                document.getElementById(timeSlot.toString()).style.visibility = "hidden";
+              }
+            });
+          }
+        },
+        monthChange: function (date) {
+          if (date <= currentDate.getMonth()) {
+            var prevMonthBtn = document
+              .getElementById("date-picker")
+              .getElementsByClassName("pagination-previous")[0];
+            prevMonthBtn.classList.add("disabled");
+            prevMonthBtn.childNodes[0].classList.add("disabled");
+            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed";
+          } else {
+            var prevMonthBtn = document
+              .getElementById("date-picker")
+              .getElementsByClassName("pagination-previous")[0];
+            prevMonthBtn.classList.remove("disabled");
+            prevMonthBtn.childNodes[0].classList.remove("disabled");
+            document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
+          }
+        },
+        submitForm: function() {
+          let req = new XMLHttpRequest();
+
+          const bookingPost = {
+            "date": date,
+            "time": document.getElementById("time").value,
+            "tables": numValue,
+          } 
+
+          req.open("post", url + "bookings");
+          req.setRequestHeader('Content-Type', 'application/json');
+          req.send(JSON.stringify(bookingPost))
+
+        }
+      },
+    });
+  </script>
+</body>
