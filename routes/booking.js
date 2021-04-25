@@ -9,4 +9,6 @@ router.route('/')
 
 router.get('/new', booking.renderNewBooking);
 
+router.get('/:date', booking.jsonDateBookings)
+
 module.exports = router;
