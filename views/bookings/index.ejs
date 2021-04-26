@@ -188,13 +188,15 @@
         submitForm: function() {
           let req = new XMLHttpRequest();
 
+          const url="http://localhost:3000"
+
           const bookingPost = {
-            "date": date,
+            "date": app.date,
             "time": document.getElementById("time").value,
-            "tables": numValue,
+            "tables": app.numValue,
           } 
 
-          req.open("post", url + "bookings");
+          req.open("post", url + "/bookings");
           req.setRequestHeader('Content-Type', 'application/json');
           req.send(JSON.stringify(bookingPost))
 
