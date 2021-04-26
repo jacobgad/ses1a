@@ -188,8 +188,7 @@
         submitForm: function() {
           let req = new XMLHttpRequest();
 
-          const url="http://localhost:3000"
-
+          const url= process.env.DEV_URL;
           const bookingPost = {
             "date": app.date,
             "time": document.getElementById("time").value,
