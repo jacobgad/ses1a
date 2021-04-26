@@ -30,6 +30,7 @@ app.component('menu-item', {
 								maxlength="3"
 								:value="quant"
 								aria-label="Quantity"
+								disabled
 							/>
 						</div>
 					</div>
@@ -48,7 +49,7 @@ app.component('menu-item', {
 			this.quant++;
 		},
 		decQuant() {
-			this.quant--;
+			if (this.quant > 0) this.quant--;
 		},
 	},
 });
