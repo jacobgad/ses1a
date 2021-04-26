@@ -4,6 +4,9 @@
 
 <!-- Import Vue.js -->
 <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+<!-- Import Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 <div id="app" class="container">
 	<div class="row pt-5">
@@ -37,10 +40,7 @@
 			<p>1266, Lake Floyd Circle, Aiden, KS, Kansas, 67512</p>
 		</div>
 		<div class="col-6 mid-opacity text-white">
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
-				<menu-item></menu-item>
-			</ul>
+			<menu-list></menu-list>
 		</div>
 		<div class="col d-flex flex-column lr-opacity pt-5">
 			<h2 class="pb-5 border-bottom text-center border-dark">CHECKOUT</h2>
@@ -62,6 +62,7 @@
 <script src="js/menu.js"></script>
 
 <!-- Import Components -->
+<script src="components/MenuList.js"></script>
 <script src="components/MenuItem.js"></script>
 
 <!-- Mount App -->
