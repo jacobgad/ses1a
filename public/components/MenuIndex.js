@@ -13,16 +13,19 @@ app.component('menu-index', {
       <li class="list-group-item d-flex bg-transparent border-0 justify-content-between">
         <p>Pistachio Quiche - (x2)</p>
         <p>$00.00</p>
+        <p>{{cart}}</p>
       </li>
     </ul>
     <div class="pb-3 pt-3 d-grid gap-2 mt-auto border-top border-dark">
-      <button type="button" class="btn btn-info text-white border-dark">PAY $00.00</button>
+      <button type="button" class="btn btn-info text-white border-dark">PAY $ {{total}}</button>
     </div>
   </div>`,
 
 	data() {
 		return {
 			menuItems: [],
+      cart: [],
+      total: 0.00
 		};
 	},
   created() {
