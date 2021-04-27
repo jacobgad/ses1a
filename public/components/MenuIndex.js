@@ -14,7 +14,6 @@ app.component('menu-index', {
 			{{cartItem.name}} ( X{{cartItem.quant}} )
 		</li>
       <li class="list-group-item d-flex bg-transparent border-0 justify-content-between">
-        <p>{{cart}}</p>
       </li>
     </ul>
     <div class="pb-3 pt-3 d-grid gap-2 mt-auto border-top border-dark">
