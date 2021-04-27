@@ -10,6 +10,9 @@ app.component('menu-index', {
   <div class="col d-flex flex-column lr-opacity pt-5">
     <h2 class="pb-5 border-bottom text-center border-dark">CHECKOUT</h2>
     <ul class="list-group">
+		<li v-for="cartItem in cart" :key="cartItem.name" class="list-group-item d-flex bg-transparent border-0 justify-content-between">
+			{{cartItem.name}} ( X{{cartItem.quant}} )
+		</li>
       <li class="list-group-item d-flex bg-transparent border-0 justify-content-between">
         <p>{{cart}}</p>
       </li>
