@@ -1,0 +1,7 @@
+body {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('https://img.theculturetrip.com/1440x/smart/wp-content/uploads/2020/11/2br19p4.jpg');
+	background-size: cover;
+	background-position: center;
+}
