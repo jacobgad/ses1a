@@ -17,4 +17,10 @@ const BookingSchema = new Schema({
 	},
 });
 
+const TableSchema = new Schema({
+	id: String,
+	seating: Number,
+})
+
+module.exports = mongoose.model('Table', TableSchema);
 module.exports = mongoose.model('Booking', BookingSchema);
