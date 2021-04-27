@@ -1,0 +1,167 @@
+<% layout('layouts/boilerplate') %>
+
+<link rel="stylesheet" href="css/menu.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"
+  />
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+  
+<div class="container">
+	<div class="row pt-5">
+		<div class="col p-2 lr-opacity">
+			<div class="pb-4 text-center">
+				<img
+					src="Images/ArclightLogo.png"
+					class="rounded-pill w-50"
+					alt="Arclight Logo"
+				/>
+			</div>
+			<ul class="ps-2 list-group list-group-flush bg-transparent w-75">
+			<!--<ul class=" list-group list-group-flush bg-transparent w-auto">-->	
+				<a href="#" class="list-group-item text-dark active-page pb-0 border-dark">
+					<h6>Menu</h6>
+					<p>Our Delicious Dishes</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent pb-0 border-dark">
+					<h6>Booking</h6>
+					<p>Dine in With Us</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent pb-0 border-dark">
+					<h6>Gallery</h6>
+					<p>Photos of Our Venue</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent">
+					<h6>Contact</h6>
+					<p>Get in Touch</p>
+				</a>
+			</ul>
+			<div class="d-flex pb-3 justify-content-center gap-4">
+				<img
+					width="40"
+					height="40"
+					src="Images/fbLogo.png"
+					alt="Facebook Link"
+				/>
+				<img
+					width="40"
+					height="40"
+					src="Images/IgLogo.png"
+					alt="Instagram Link"
+				/>
+				<img
+					width="40"
+					height="40"
+					src="Images/GoogleLogo.png"
+					alt="Google Page Link"
+				/>
+			</div>
+			<p>1266, Lake Floyd Circle, Aiden, KS, Kansas, 67512</p>
+		</div>
+		<div class="col-6 mid-opacity text-white">
+			<ul class="list-group list-group-flush">	
+				<li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
+				<!-- Filter Dropdown? -->
+				<!-- Sort by price, alphabet?-->
+				<p>
+					<button class="btn btn-light mt-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					  Filter Items
+					</button>
+				  </p>
+				  <div class="collapse" id="collapseExample">
+					<div class="card card-body text-dark">
+						<form id="filters" action="/filter" method="post">
+				
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">Name</label>
+								<input type="text" class="form-control" id="name" placeholder="Burger">
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">Product Description</label>
+								<input type="text" class="form-control" id="description" placeholder="Entree">
+							</div>
+
+							<!-- Change to a range form? -->
+							<div class="mb-3">
+								<label class="form-label">Price Range</label>
+								<div class="row">
+									<div class="col">
+										<input type="number" class="form-control" id="minPrice" placeholder="Minimum Price">
+									</div>
+									<div class="col">
+										<input type="number" class="form-control" id="maxPrice" placeholder="Maximum Price">
+									</div>
+								</div>
+
+								<br>
+								<button class="btn btn-primary mx-auto" type="submit">Submit form</button>
+								
+
+							</div>
+						</form>
+					</div>
+				  </div>
+				<!-- Dropdown code end, the follwoing text check that the filters are being met -->
+				<% menu.forEach(MenuItem => { 
+					if(MenuItem.price != 27
+					
+					
+					
+					
+					){
+					%>
+				<li class="list-group-item bg-transparent border-white">
+					<div class="card mb-3 bg-transparent border-0" style="max-width: 540px">
+						<div class="row g-0">
+							<div class="col-md-4 align-middle">
+								<img src="<%= MenuItem.imageUrl %>" class="pt-3 img-fluid rounded-3"/>
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<div class="d-flex justify-content-between">
+										<h5 class="card-title"><%= MenuItem.name %></h5>
+										<h6 class="card-text"><%= MenuItem.price %></h6>
+										<h6 class="card-text"><%= MenuItem.course %></h6>
+									</div>
+									<p class="card-text"><%= MenuItem.description %></p>
+									<div class="d-flex justify-content-end gap-2">
+										<button type="button" class="btn btn-sm btn-circle bg-white"><h5>+</h5></button>
+										<button type="button" class="btn btn-sm btn-circle bg-white"><h5>-</h5></button>
+										
+										<input
+											type="text"
+											class="form-control w-auto max-width-2"
+											size="1"
+											width="1"
+											maxlength="3"
+											value="0"
+											aria-label="Quantity"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<% }}) %>
+			</ul>
+		</div>
+		<div class="col d-flex flex-column lr-opacity pt-5">
+			<h2 class="pb-5 border-bottom text-center border-dark">CHECKOUT</h2>
+			<ul class="list-group">
+				<li class="list-group-item d-flex bg-transparent border-0 justify-content-between">
+					<p>Pistachio Quiche - (x2)</p>
+					<p>$00.00</p>
+				</li>
+			</ul>
+			<div class="pb-3 pt-3 d-grid gap-2 mt-auto border-top border-dark">
+				<button type="button" class="btn btn-info text-white border-dark">PAY $00.00</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="test"></div>
