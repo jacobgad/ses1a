@@ -28,12 +28,13 @@ app.component('menu-index', {
 	},
 	methods: {
 		addToCart(cartItem) {
-      if (!this.cart.some(obj => obj.hasOwnProperty(cartItem.name))) {
-        this.cart.push(cartItem);
-      } else {
-        const index = this.cart.findIndex(cartItem);
-        this.cart[index].quant += 1;
-      }
+			for (let i in this.cart) {
+				if (this.cart[i].name == cartItem.name) {
+					this.cart[i] = cartItem;
+					return
+				}
+			}
+			this.cart.push(cartItem);
 		},
 	},
 	created() {
