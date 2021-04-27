@@ -52,7 +52,7 @@ app.component('menu-index', {
 	},
 	created() {
 		axios
-			.get('http://localhost:3000/menu/json')
+			.get('/menu/json')
 			.then((response) => {
 				this.menuItems = response.data;
 			})
