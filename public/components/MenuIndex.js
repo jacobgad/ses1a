@@ -4,7 +4,7 @@ app.component('menu-index', {
   <div class="col-6 mid-opacity text-white">
     <ul class="list-group list-group-flush">
       <li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
-      <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart'></menu-item>
+      <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
     </ul>
 	</div>
   <div class="col d-flex flex-column lr-opacity pt-5">
@@ -37,6 +37,15 @@ app.component('menu-index', {
 			}
 			this.cart.push(cartItem);
 			this.total += cartItem.price;
+		},
+		removeFromCart(itemName) {
+			for (let i in this.cart) {
+				if (this.cart[i].name == itemName) {
+					this.cart[i].quant--;
+					this.total -= this.cart[i].price;
+					if (this.cart[i].quant === 0) this.cart.splice(i, 1);
+				}
+			}
 		},
 	},
 	created() {

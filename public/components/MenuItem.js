@@ -56,6 +56,7 @@ app.component('menu-item', {
 		},
 		decQuant() {
 			if (this.quant > 0) this.quant--;
+			this.$emit('remove-from-cart', this.menuItem.name)
 		},
 	},
 });
