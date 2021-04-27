@@ -47,8 +47,11 @@ app.component('menu-item', {
 	methods: {
 		incQuant() {
 			this.quant++;
-			const cartItem = {};
-			cartItem[this.menuItem.name] = this.quant;
+			const cartItem = {
+				name: this.menuItem.name,
+				quant: this.quant,
+				price: this.menuItem.price,
+			};
 			this.$emit('add-to-cart', cartItem);
 		},
 		decQuant() {

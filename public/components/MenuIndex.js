@@ -28,7 +28,12 @@ app.component('menu-index', {
 	},
 	methods: {
 		addToCart(cartItem) {
-			this.cart.push(cartItem);
+      if (!this.cart.some(obj => obj.hasOwnProperty(cartItem.name))) {
+        this.cart.push(cartItem);
+      } else {
+        const index = this.cart.findIndex(cartItem);
+        this.cart[index].quant += 1;
+      }
 		},
 	},
 	created() {
