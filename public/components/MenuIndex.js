@@ -30,11 +30,13 @@ app.component('menu-index', {
 		addToCart(cartItem) {
 			for (let i in this.cart) {
 				if (this.cart[i].name == cartItem.name) {
-					this.cart[i] = cartItem;
-					return
+					this.cart[i].quant++;
+					this.total += cartItem.price;
+					return;
 				}
 			}
 			this.cart.push(cartItem);
+			this.total += cartItem.price;
 		},
 	},
 	created() {
