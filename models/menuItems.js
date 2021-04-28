@@ -12,6 +12,11 @@ const MenuItemSchema = new Schema({
 	},
 	description: String,
 	imageUrl: String,
+	course:{
+		type: String,
+		enum: ['Entree', 'Main', 'Dessert'],
+		
+	},
 });
 
 module.exports = mongoose.model('MenuItem', MenuItemSchema);
