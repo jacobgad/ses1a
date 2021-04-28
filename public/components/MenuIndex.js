@@ -17,18 +17,12 @@ app.component('menu-index', {
 								<input type="text" class="form-control" id="name" placeholder="Burger">
 							</div>
 
-							<div class="mb-3 dropdown">
-								<!--label for="exampleFormControlInput1" class="form-label">Course Type</label-->
-								<!--input type="text" class="form-control" id="description" placeholder="Entree"-->
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="coursetypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-									Course Type
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="coursetypeDropdown">
-									<li><a class="dropdown-item" href="#">Entree</a></li>
-									<li><a class="dropdown-item" href="#">Main</a></li>
-									<li><a class="dropdown-item" href="#">Dessert</a></li>
-								  </ul>
-							</div>
+							<select class="mb-3 mw-50 form-select" aria-label="Select course type">
+  								<option selected>Course Type</option>
+								<option value="1">Entree</option>
+								<option value="2">Main</option>
+								<option value="3">Dessert</option>
+							</select>
 
 							<div class="mb-3 justify-content-end">
 								<label class="form-label">Price:</label>
