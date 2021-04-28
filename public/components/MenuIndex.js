@@ -4,6 +4,47 @@ app.component('menu-index', {
   <div class="col-6 mid-opacity text-white">
     <ul class="list-group list-group-flush">
       <li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
+	  <p>
+					<button class="btn btn-light mt-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					  Filter Items
+					</button>
+				  </p>
+				  <div class="collapse" id="collapseExample">
+					<div class="card card-body text-dark lr-opacity">
+						<form action="/filter" method="POST">
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">Name</label>
+								<input type="text" class="form-control" id="name" placeholder="Burger">
+							</div>
+
+							<div class="mb-3 dropdown">
+								<!--label for="exampleFormControlInput1" class="form-label">Course Type</label-->
+								<!--input type="text" class="form-control" id="description" placeholder="Entree"-->
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="coursetypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+									Course Type
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="coursetypeDropdown">
+									<li><a class="dropdown-item" href="#">Entree</a></li>
+									<li><a class="dropdown-item" href="#">Main</a></li>
+									<li><a class="dropdown-item" href="#">Dessert</a></li>
+								  </ul>
+							</div>
+
+							<div class="mb-3 justify-content-end">
+								<label class="form-label">Price:</label>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="lowHighRadio" value="option1">
+									<label class="form-check-label" for="inlineRadio1">Low-High</label>
+								  </div>
+								  <div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="highLowRadio" value="option2">
+									<label class="form-check-label" for="inlineRadio2">High-Low</label>
+								  </div>
+							</div>
+							<button class="btn btn-primary mx-auto" type="submit">Search</button>
+						</form>
+					</div>
+				  </div>
       <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
     </ul>
 	</div>
