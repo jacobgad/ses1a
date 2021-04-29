@@ -11,7 +11,7 @@ app.component('menu-index', {
 				  </p>
 				  <div class="collapse" id="collapseExample">
 					<div class="card card-body text-dark lr-opacity">
-						<form action="/filter" method="POST">
+						<form> <!--action="/filter" method="POST"-->
 							<div class="mb-3">
 								<label for="exampleFormControlInput1" class="form-label">Name</label>
 								<input type="text" class="form-control" id="name" placeholder="Burger">
@@ -35,7 +35,7 @@ app.component('menu-index', {
 									<label class="form-check-label" for="inlineRadio2">High-Low</label>
 								  </div>
 							</div>
-							<button class="btn btn-primary mx-auto" type="submit">Search</button>
+							<button class="btn btn-primary mx-auto" type="submit" v-on:click="filter">Search</button>
 						</form>
 					</div>
 				  </div>
@@ -83,6 +83,12 @@ app.component('menu-index', {
 					if (this.cart[i].quant === 0) this.cart.splice(i, 1);
 				}
 			}
+		},
+		filter() {
+			//If text element is typed - filter by text
+			//If course type selected - filter again by course
+			//If price radio is selected - Sort by price
+			//Item not found - "Sorry no results matched your search"
 		},
 	},
 	created() {
