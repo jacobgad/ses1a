@@ -7,7 +7,7 @@ const BookingSchema = new Schema({
 		required: true,
 	},
 	tables: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	user: {

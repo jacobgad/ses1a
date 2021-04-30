@@ -95,17 +95,85 @@
   <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
   <script>
+    const axios = require('axios').default;
+    const Table = require('../models/Booking');
+    
     const currentDate = new Date();
-
     let dateModel = currentDate;
-
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-
     const minTime = new Date("17:00:00");
     const maxTime = new Date("21:00:00");
-
     const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
+
+    const url= process.env.DEV_URL;
+
+    async function getAvability(time) {
+      let avability = await Table.find({});
+      axios.get(url + '/' + time.getDate())
+      .then((res) => {
+        res.map((value) => {
+          if (value.date > time.setHours(time.getHours() + 1)) {
+            Valueid = value.tables;
+            avability.forEach((t) => {
+              if (t.id = Valueid) {
+                avability.filter((v) => {
+                  return v != t;
+                })
+              }
+            })
+          }
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+      return avability;
+    }
+
+    function findTable(num, time) {
+      const avability = getAvability(time);
+      if (num <= 2) {
+        avability.forEach(table => {
+          if (avability.capacity == 2) {
+            return table; 
+          }
+        });
+        
+        avability.forEach(table => {
+          if (avability.capacity == 4) {
+            return table; 
+          }
+        });
+
+        avability.forEach(table => {
+          if (avability.capacity == 6) {
+            return table; 
+          }
+        });
+      } else if (num <= 4){
+
+        avability.forEach(table => {
+          if (avability.capacity == 4) {
+            return table; 
+          }
+        });
+
+        avability.forEach(table => {
+          if (avability.capacity == 6) {
+            return table; 
+          }
+        });
+
+      } else if (num <= 6){
+        avability.forEach(table => {
+          if (avability.capacity == 6) {
+            return table; 
+          }
+        });
+      }
+
+      return null
+    }
 
     setTimeout(() => {
       var prevMonthBtn = document
@@ -185,19 +253,26 @@
             document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
           }
         },
-        submitForm: function() {
-          let req = new XMLHttpRequest();
+        submitForm: async function() {  
+          const bookingDateTime = app.date.setTime(document.getElementById("time").value)
+          const table = getTable(app.numValue, this.bookingDateTime)
+          
+          if(table) {
+            //Error
+            return;
+          }
 
-          const url= process.env.DEV_URL;
           const bookingPost = {
-            "date": app.date,
-            "time": document.getElementById("time").value,
-            "tables": app.numValue,
+            "date": this.bookingDateTime,
+            "tables": tables
           } 
 
-          req.open("post", url + "/bookings");
-          req.setRequestHeader('Content-Type', 'application/json');
-          req.send(JSON.stringify(bookingPost))
+          axios.post(url + "/bookings", bookingPost)
+          .then((result) => {
+            //TODO
+          }).catch((err) => {
+            //TODO
+          });
 
         }
       },
