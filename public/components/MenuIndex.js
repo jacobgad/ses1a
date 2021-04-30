@@ -10,10 +10,35 @@ app.component('menu-index', {
 					</button>
 				  </p>
 				  <div class="collapse" id="collapseExample">
-					<div class="card card-body text-dark lr-opacity">
-						<menu-filter></menu-filter>	
+		<div class="card card-body text-dark lr-opacity">
+			<form> <!--action="/filter" method="POST"-->
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label">Name</label>
+					<input type="text" class="form-control" id="name" placeholder="Burger">
+				</div>
+
+					<select class="mb-3 mw-50 form-select" aria-label="Select course type">
+						<option selected>Course Type</option>
+						<option value="1">Entree</option>
+						<option value="2">Main</option>
+						<option value="3">Dessert</option>
+					</select>
+
+					<div class="mb-3 justify-content-end">
+						<label class="form-label">Price:</label>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="lowHighRadio" value="option1">
+							<label class="form-check-label" for="inlineRadio1">Low-High</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="highLowRadio" value="option2">
+							<label class="form-check-label" for="inlineRadio2">High-Low</label>
+						</div>
 					</div>
-				  </div>
+					<button class="btn btn-primary mx-auto" type="submit" v-on:click="filter">Search</button>
+			</form> 
+		</div>
+	</div>
       <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
     </ul>
 	</div>
