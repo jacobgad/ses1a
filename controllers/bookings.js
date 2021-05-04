@@ -1,4 +1,5 @@
 const Booking = require('../models/Booking');
+const Table = require('../models/Table');
 
 module.exports.renderBooking = async (req, res) => {
 	const bookings = await Booking.find({ date: { $gte: Date.now(), $lte: Date.now() + 12096e5 } });
@@ -13,17 +14,22 @@ module.exports.jsonDateBookings = async (req, res) => {
 	res.json(avalibility(bookings));
 };
 
+module.exports.getTable = async (req, res) => {
+	const tables = await Table.find({});
+	const tableRes = tables ? tables : {};
+	res.json(tableRes);
+}
+
 module.exports.registerBooking = async (req, res) => {
 	try {
-		let { date, time, tables } = req.body;
-		date = new Date(date + ' ' + time);
+		let { date, table } = req.body;
 		const user = req.user.id;
-		const newBooking = new Booking({ date, tables, user });
+		const newBooking = new Booking({ date, table, user });
 		await newBooking.save();
-		res.redirect('/bookings');
+		res.status(201)
 	} catch (e) {
 		req.flash('error', 'There was an error please try again soon');
-		res.redirect('/bookings');
+		res.json(e)
 	}
 };
 
