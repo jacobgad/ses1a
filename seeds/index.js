@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const MenuItem = require('../models/menuItems');
 const seedMenuItems = require('./menuItems');
+const Table = require('../models/Table')
 const seedTables = require('./table');
-const Table = require('../models/Booking')
 
 const dbUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/restaurant';
 mongoose.connect(dbUrl, {
@@ -24,7 +24,8 @@ const seedDB = async () => {
 		const newMenuItem = new MenuItem({ name, description, imageUrl, price, course});
 		await newMenuItem.save();
 	}
-	for (table of seedTables ){
+	await Table.deleteMany({});
+	for (table of seedTables ) {
 		const { id, seating } = table;
 		const newTable = new Table({id, seating});
 		await newTable.save();

@@ -1,4 +1,4 @@
-module.export = [
+module.exports = [
     {id: "01", seating: 4},
     {id: "02", seating: 4},
     {id: "03", seating: 6},
