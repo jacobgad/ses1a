@@ -36,7 +36,7 @@ app.component('menu-index', {
 						</div>
 					</div>
 					<button class="btn btn-primary mx-auto" type="submit" v-on:click="filter">Search</button>
-			</form> 
+			</form>
 		</div>
 	</div>
       <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
