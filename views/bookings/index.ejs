@@ -52,14 +52,14 @@
             name="time"
             id="time"
           >
-            <option id="1700" value="17:00:00">5:00pm</option>
-            <option id="1730" value="17:30:00">5:30pm</option>
-            <option id="1800" value="18:00:00">6:00pm</option>
-            <option id="1830" value="18:30:00">6:30pm</option>
-            <option id="1900" value="19:00:00">7:00pm</option>
-            <option id="1930" value="18:30:00">7:30pm</option>
-            <option id="2000" value="20:00:00">8:00pm</option>
-            <option id="2030" value="20:30:00">8:30pm</option>
+            <option id="1700" value="1700">5:00pm</option>
+            <option id="1730" value="1730">5:30pm</option>
+            <option id="1800" value="1800">6:00pm</option>
+            <option id="1830" value="1830">6:30pm</option>
+            <option id="1900" value="1900">7:00pm</option>
+            <option id="1930" value="1830">7:30pm</option>
+            <option id="2000" value="2000">8:00pm</option>
+            <option id="2030" value="2030">8:30pm</option>
           </select>
         </div>
         <div class="headingWrapper">
@@ -93,189 +93,7 @@
 
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <script>
-    const axios = require('axios').default;
-    const Table = require('../models/Booking');
-    
-    const currentDate = new Date();
-    let dateModel = currentDate;
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const minTime = new Date("17:00:00");
-    const maxTime = new Date("21:00:00");
-    const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
-
-    const url= process.env.DEV_URL;
-
-    async function getAvability(time) {
-      let avability = await Table.find({});
-      axios.get(url + '/' + time.getDate())
-      .then((res) => {
-        res.map((value) => {
-          if (value.date > time.setHours(time.getHours() + 1)) {
-            Valueid = value.tables;
-            avability.forEach((t) => {
-              if (t.id = Valueid) {
-                avability.filter((v) => {
-                  return v != t;
-                })
-              }
-            })
-          }
-        })
-      }).catch((err) => {
-        console.log(err)
-      })
-      return avability;
-    }
-
-    function findTable(num, time) {
-      const avability = getAvability(time);
-      if (num <= 2) {
-        avability.forEach(table => {
-          if (avability.capacity == 2) {
-            return table; 
-          }
-        });
-        
-        avability.forEach(table => {
-          if (avability.capacity == 4) {
-            return table; 
-          }
-        });
-
-        avability.forEach(table => {
-          if (avability.capacity == 6) {
-            return table; 
-          }
-        });
-      } else if (num <= 4){
-
-        avability.forEach(table => {
-          if (avability.capacity == 4) {
-            return table; 
-          }
-        });
-
-        avability.forEach(table => {
-          if (avability.capacity == 6) {
-            return table; 
-          }
-        });
-
-      } else if (num <= 6){
-        avability.forEach(table => {
-          if (avability.capacity == 6) {
-            return table; 
-          }
-        });
-      }
-
-      return null
-    }
-
-    setTimeout(() => {
-      var prevMonthBtn = document
-        .getElementById("date-picker")
-        .getElementsByClassName("pagination-previous")[0];
-      prevMonthBtn.classList.add("disabled");
-      prevMonthBtn.childNodes[0].classList.add("disabled");
-      var div = document.createElement("div");
-      div.setAttribute("id", "prevMonthBtnCon");
-      div.appendChild(prevMonthBtn);
-      document.getElementById("date-picker")
-        .getElementsByClassName("pagination field is-centered")[0]
-        .appendChild(div);
-      document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
-    });
-
-    if (currentDate.getHours() > 18) {
-      document.getElementById("restrauntClosedWarning").hidden = false;
-      yesterday.setDate(yesterday.getDate() + 1);
-      dateModel.setDate(dateModel.getDate() + 1);
-    } else {
-      timeSlots.forEach((timeSlot) => {
-        if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
-          document.getElementById(timeSlot.toString()).style.visibility = "hidden";
-        }
-      });
-    }
-
-    const app = new Vue({
-      el: "#app",
-      data: {
-        open: false,
-        date: dateModel,
-        dayNames: ["S", "M", "T", "W", "T", "F", "S"],
-        minDate: yesterday,
-        minTime: minTime,
-        maxTime: maxTime,
-        incrementMinutes: 30,
-        numValue: 1,
-      },
-      methods: {
-        dateChange: function (date) {
-          const dayMonthYear =
-            date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-          const currentDayMonthYear =
-            currentDate.getDate() +
-            "/" +
-            currentDate.getMonth() +
-            "/" +
-            currentDate.getFullYear();
-
-          if (dayMonthYear == currentDayMonthYear) {
-            timeSlots.forEach((timeSlot) => {
-              if (
-                timeSlot <
-                currentDate.getHours() + "" + currentDate.getMinutes()
-              ) {
-                document.getElementById(timeSlot.toString()).style.visibility = "hidden";
-              }
-            });
-          }
-        },
-        monthChange: function (date) {
-          if (date <= currentDate.getMonth()) {
-            var prevMonthBtn = document
-              .getElementById("date-picker")
-              .getElementsByClassName("pagination-previous")[0];
-            prevMonthBtn.classList.add("disabled");
-            prevMonthBtn.childNodes[0].classList.add("disabled");
-            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed";
-          } else {
-            var prevMonthBtn = document
-              .getElementById("date-picker")
-              .getElementsByClassName("pagination-previous")[0];
-            prevMonthBtn.classList.remove("disabled");
-            prevMonthBtn.childNodes[0].classList.remove("disabled");
-            document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
-          }
-        },
-        submitForm: async function() {  
-          const bookingDateTime = app.date.setTime(document.getElementById("time").value)
-          const table = getTable(app.numValue, this.bookingDateTime)
-          
-          if(table) {
-            //Error
-            return;
-          }
-
-          const bookingPost = {
-            "date": this.bookingDateTime,
-            "tables": tables
-          } 
-
-          axios.post(url + "/bookings", bookingPost)
-          .then((result) => {
-            //TODO
-          }).catch((err) => {
-            //TODO
-          });
-
-        }
-      },
-    });
-  </script>
+  <script src="js/booking.js"></script>
 </body>
