@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
-}
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -16,9 +14,12 @@ const methodOverride = require('method-override');
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
+const bookingRoutes = require('./routes/booking');
+const menuRoutes = require('./routes/menu');
+const { noAdmin } = require('./middleware/admin');
 
 //Connect to Mongo Database
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.MONGO_URL;
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -89,8 +90,14 @@ app.use((req, res, next) => {
 //Express Routes
 app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
+app.use('/bookings', bookingRoutes);
+app.use('/menu', menuRoutes);
 
-app.get('/', (req, res) => {
+app.get('/contact', (req, res) => {
+	res.render('contact');
+});
+
+app.get('/', noAdmin, (req, res) => {
 	res.render('home');
 });
 

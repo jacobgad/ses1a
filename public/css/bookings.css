@@ -1,0 +1,36 @@
+.b-sidebar .sidebar-content {
+    width: 380px;
+  }
+
+  .b-sidebar .formItemWrapper {
+    padding: 10px 0px 10px 10px;
+  }
+
+  .b-sidebar .headingWrapper {
+    padding: 0px 10px;
+  }
+
+  .dropdown-item:active {
+    background-color: #e9ecef;
+  }
+
+  .drawer-footer {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+  }
+
+  .btn-fullwidth {
+    width: 330px;
+  }
+
+  .pagination-previous {
+    display: block !important;
+  }
+
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none !important;
+  }
+
+  

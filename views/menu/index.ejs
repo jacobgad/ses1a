@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+
+<link rel="stylesheet" href="css/menu.css" />
+
+<!-- Import Vue.js -->
+<script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+<!-- Import Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+<div id="app" class="container">
+	<div class="row pt-5">
+		<div class="col p-2 lr-opacity">
+			<div class="pb-4 text-center">
+				<img src="Images/ArclightLogo.png" class="rounded-pill w-50" alt="Arclight Logo" />
+			</div>
+			<ul class="ps-2 list-group list-group-flush bg-transparent w-75">
+			<!--<ul class=" list-group list-group-flush bg-transparent w-auto">-->	
+				<a href="#" class="list-group-item text-dark active-page pb-0 border-dark">
+					<h6>Menu</h6>
+					<p>Our Delicious Dishes</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent pb-0 border-dark">
+					<h6>Booking</h6>
+					<p>Dine in With Us</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent pb-0 border-dark">
+					<h6>Gallery</h6>
+					<p>Photos of Our Venue</p>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-transparent">
+					<h6>Contact</h6>
+					<p>Get in Touch</p>
+				</a>
+			</ul>
+			<div class="d-flex pb-3 justify-content-center gap-4">
+				<img width="40" height="40" src="Images/fbLogo.png" alt="Facebook Link" />
+				<img width="40" height="40" src="Images/IgLogo.png" alt="Instagram Link" />
+				<img width="40" height="40" src="Images/GoogleLogo.png" alt="Google Page Link" />
+			</div>
+			<p>1266, Lake Floyd Circle, Aiden, KS, Kansas, 67512</p>
+		</div>
+		<menu-index></menu-index>
+	</div>
+</div>
+
+<!-- Import App -->
+<script src="js/menu.js"></script>
+
+<!-- Import Components -->
+<script src="components/MenuIndex.js"></script>
+<script src="components/MenuItem.js"></script>
+
+<!-- Mount App -->
+<script>
+	const mountedApp = app.mount('#app');
+</script>
