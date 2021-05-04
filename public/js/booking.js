@@ -7,21 +7,93 @@ const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
 let url = "http://localhost:3000";
 
 async function getAvability(time) {
-  const slug = time.getFullYear() + '-' + time.getMonth() + '-' + time.getDate()
+  const date =
+    time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
 
-  axios
-    .get(url + "/bookings/" + slug)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err);
+  let dayBookings;
+
+  let tables;
+
+  try {
+    const tableRes = await axios.get(url + "/bookings/table");
+    tables = tableRes.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    const bookingRes = await axios.get(url + "/bookings/" + date);
+    dayBookings = bookingRes.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  const bookings = await dayBookings;
+
+  if (Object.keys(bookings).length === 0) {
+    return tables;
+  } else {
+    bookings.forEach((booking) => {
+      if (
+        booking.date >= time &&
+        booking <= new Date(time.setHours(time.getHours() + 1))
+      ) {
+        tables.filter((value) => value.id != booking.table.id);
+      }
     });
+  }
+
+  return tables;
 }
 
-function findTable(num, time) {
-  console.log(getAvability(time))
-  return null;
+async function findTable(num, time) {
+  let suitableTables = [];
+
+  await getAvability(time).then((res) => {
+    if (num <= 2) {
+      res.forEach((table) => {
+        if (table.seating == 2) {
+          suitableTables.push(table);
+        }
+      });
+
+      res.forEach((table) => {
+        if (table.seating == 4) {
+          suitableTables.push(table);
+        }
+      });
+
+      res.forEach((table) => {
+        if (table.seating == 6) {
+          suitableTables.push(table);
+        }
+      });
+    } else if (num <= 4) {
+      res.forEach((table) => {
+        if (table.seating == 4) {
+          suitableTables.push(table);
+        }
+      });
+
+      res.forEach((table) => {
+        if (table.seating == 6) {
+          suitableTables.push(table);
+        }
+      });
+    } else if (num <= 6) {
+      res.forEach((table) => {
+        if (table.seating == 6) {
+          suitableTables.push(table);
+        }
+      });
+    }
+  });
+
+  if ((await suitableTables.length) > 0) {
+    return suitableTables[0];
+  } else {
+    return null;
+  }
 }
 
 setTimeout(() => {
@@ -107,17 +179,31 @@ const app = new Vue({
         document.getElementById("prevMonthBtnCon").style.cursor = "pointer";
       }
     },
-    submitForm: function () {
-      const bookingTime = document.getElementById('time').value
-      let bookingDateTime = new Date(this.date.setHours(Number(bookingTime.substring(0,2)), 
-      Number(bookingTime.substring(2,4)), 00));
+    submitForm: async function () {
+      const bookingTime = document.getElementById("time").value;
+      let bookingDateTime = new Date(
+        this.date.setHours(
+          Number(bookingTime.substring(0, 2)),
+          Number(bookingTime.substring(2, 4)),
+          00
+        )
+      );
+
+      const table = await findTable(this.numValue, bookingDateTime);
 
       const bookingPost = {
         date: bookingDateTime,
-        table: findTable(this.numValue, bookingDateTime)
-      }
+        table: table.id,
+      };
 
-      console.log(bookingPost)
+      axios.post(url + "/bookings/new", bookingPost).then((res) => {
+        this.open = false;
+        this.$buefy.toast.open({
+          indefinite: true,
+          message: "Something happened correctly!",
+          type: "is-success",
+        });
+      });
     },
   },
 });

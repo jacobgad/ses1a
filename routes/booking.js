@@ -4,11 +4,12 @@ const router = express.Router();
 const booking = require('../controllers/bookings');
 
 router.route('/')
-  .get(booking.renderBooking)
-  .post(booking.registerBooking);
+  .get(booking.renderBooking);
 
-router.get('/new', booking.renderNewBooking);
+router.post('/new', booking.registerBooking);
 
-router.get('/:date', booking.jsonDateBookings)
+router.get('/table', booking.getTable);
+
+router.get('/:date', booking.jsonDateBookings);
 
 module.exports = router;
