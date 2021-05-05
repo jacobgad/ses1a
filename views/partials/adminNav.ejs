@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link <%= page==='staff' ? 'active' : '' %> " aria-current="page" href="/admin/staff">Edit Staff</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle <%= page==='menu' ? 'active' : '' %>" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu Items</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/admin/menu">Edit Menu</a></li>
+      <li><a class="dropdown-item" href="/menu/new">Add Menu Item</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= page==='discounts' ? 'active' : '' %>" href="/admin/discounts">Discounts</a>
+  </li>
+</ul>

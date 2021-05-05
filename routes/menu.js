@@ -10,7 +10,8 @@ const upload = multer({ storage });
 
 router.route('/')
   .get(menu.renderMenu)
-  .post(isLoggedIn, isNotUser, upload.single('image'), menu.createMenuItem);
+  .post(isLoggedIn, isNotUser, upload.single('image'), menu.createMenuItem)
+  .delete(isLoggedIn, isNotUser, menu.deleteMenuItem);
 
 router.get('/new', isLoggedIn, isNotUser, menu.renderNew);
 

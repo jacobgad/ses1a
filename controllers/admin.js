@@ -1,11 +1,10 @@
 const User = require('../models/user');
 const Discount = require('../models/discount');
+const Menu = require('../models/menuItems');
 const Emails = require('../controllers/emails');
 
 module.exports.renderIndex = async (req, res) => {
-	const users = await User.find({});
-	const discounts = await Discount.find({});
-	res.render('admin/index', { users, discounts });
+	res.render('admin/index', {page: 'index'});
 };
 
 module.exports.renderFirstAdmin = async (req, res) => {
@@ -35,7 +34,7 @@ module.exports.firstAdmin = async (req, res) => {
 
 module.exports.renderStaff = async (req, res) => {
 	const users = await User.find({});
-	res.render('admin/staff', { users });
+	res.render('admin/staff', { users, page: 'staff' });
 };
 
 module.exports.newStaff = async (req, res) => {
@@ -89,20 +88,20 @@ module.exports.deleteStaff = async (req, res) => {
 
 module.exports.renderDiscounts = async (req, res) => {
 	const discounts = await Discount.find({});
-	res.render('admin/discount', { discounts });
+	res.render('admin/discount', { discounts, page: 'discounts' });
 };
 
 module.exports.newDiscount = async (req, res) => {
 	try {
-	const { code, percentage } = req.body;
-	// const coup = coupGen();
-	const discount = new Discount({
-		code: code,
-		amount: percentage,
-	});
-	await discount.save();
-	res.redirect('/admin/discounts');
-	}catch (e) {
+		const { code, percentage } = req.body;
+		// const coup = coupGen();
+		const discount = new Discount({
+			code: code,
+			amount: percentage,
+		});
+		await discount.save();
+		res.redirect('/admin/discounts');
+	} catch (e) {
 		req.flash('error', e.message);
 		res.redirect('/admin/discounts');
 	}
@@ -113,4 +112,9 @@ module.exports.deleteDiscount = async (req, res) => {
 	await Discount.findByIdAndRemove({ _id: id });
 	req.flash('success', 'Successfully deleted discount');
 	res.redirect('/admin/discounts');
+};
+
+module.exports.renderMenu = async (req, res) => {
+	const menu = await Menu.find({});
+	res.render('admin/menu', { menu, page: 'menu' });
 };
