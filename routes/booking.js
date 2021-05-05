@@ -4,9 +4,10 @@ const router = express.Router();
 const booking = require('../controllers/bookings');
 
 router.route('/')
-  .get(booking.renderBooking);
+  .get(booking.renderBooking)
+  .post(booking.registerBooking);
 
-router.post('/new', booking.registerBooking);
+router.post('/new', booking.renderNewBooking);
 
 router.get('/table', booking.getTable);
 

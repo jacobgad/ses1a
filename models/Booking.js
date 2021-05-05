@@ -6,7 +6,7 @@ const BookingSchema = new Schema({
 		type: Date,
 		required: true,
 	},
-	tables: {
+	table: {
 		type: String,
 		required: true,
 	},

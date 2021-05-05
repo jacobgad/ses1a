@@ -22,12 +22,14 @@ module.exports.getTable = async (req, res) => {
 
 module.exports.registerBooking = async (req, res) => {
 	try {
+		let x = req
 		let { date, table } = req.body;
 		const user = req.user.id;
 		const newBooking = new Booking({ date, table, user });
 		await newBooking.save();
-		res.status(201)
+		res.status(201);
 	} catch (e) {
+		res.status(400);
 		req.flash('error', 'There was an error please try again soon');
 		res.json(e)
 	}

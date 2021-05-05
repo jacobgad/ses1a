@@ -196,13 +196,15 @@ const app = new Vue({
         table: table.id,
       };
 
-      axios.post(url + "/bookings/new", bookingPost).then((res) => {
+      axios.post(url + "/bookings", bookingPost).then((res) => {
         this.open = false;
         this.$buefy.toast.open({
           indefinite: true,
           message: "Something happened correctly!",
           type: "is-success",
         });
+      }).catch((err) => {
+        console.log(err)
       });
     },
   },
