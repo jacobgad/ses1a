@@ -5,7 +5,17 @@ module.exports.renderMenu = async (req, res) => {
 	res.render('menu/index', { menu });
 };
 
-module.exports.jsonMenu = async (req,res) => {
+module.exports.renderNew = (req, res) => {
+	res.render('menu/new');
+};
+
+module.exports.createMenuItem = async (req, res) => {
+	const menuItem = new Menu(req.body.menuItem);
+	await menuItem.save();
+	res.redirect('/admin')
+};
+
+module.exports.jsonMenu = async (req, res) => {
 	const menu = await Menu.find({});
 	res.json(menu);
-}
+};

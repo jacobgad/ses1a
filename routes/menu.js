@@ -1,10 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: './public/images/uploads/' });
 
-const { renderMenu, jsonMenu } = require('../controllers/menu');
+const menu = require('../controllers/menu');
+const { isLoggedIn } = require('../middleware/users');
+const { isNotUser } = require('../middleware/admin');
 
-router.route('/').get(renderMenu);
+router.route('/')
+  .get(menu.renderMenu)
+  .post(isLoggedIn, isNotUser, upload.single('image'), menu.createMenuItem);
 
-router.get('/json', jsonMenu);
+router.get('/new', isLoggedIn, isNotUser, menu.renderNew);
+
+router.get('/json', menu.jsonMenu);
 
 module.exports = router;
