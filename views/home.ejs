@@ -2,45 +2,51 @@
 <link rel="stylesheet" href="css/home.css" />
 
 <div class="container gap-6">
-	<div class="row"></div>
-
 	<div class="row mt-3">
+		<div class="col-md-3">
+			<div class="card h-100">
+				<img class="card-img-top" src="https://images.unsplash.com/photo-1616862486227-b34e18537e68?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Sign In</h5>
+					<p class="card-text">Looking to sign in to your account, or create one? Click here!</p>
+					<div class="row justify-content-center">
+						<div class="col-auto">
+						<a class="btn btn-primary" href="/login">View Account</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-md-6">
-			<div class="card mt-3 p-6 col-py-6" style="width: 25rem">
-				<form action="/login" method="POST" class="needs-validation">
-					<div class="card-body" style="height: 25rem">
-						<div class="mb-3">
-							<h5 class="card-title">Welcome Back!</h5>
-						</div>
+			<div class="card h-100">
+				<h5 class="card-header">ArcLight</h5>
+				<div class="card-body">
+					<img class="card-img-top" src="https://drive.google.com/uc?id=1wbQ0wkYtDqHGP54DbLHMi3OUCad966mx" alt="ArcLight Logo">
+					<h5 class="card-title">Welcome to the ArcLight restaurant</h5>
+					<p class="card-text">Welcome to the website of the ArcLight restaurant.</p>
+				</div>
+			</div>
+		</div>
 
-						<div class="mb-3">
-							<input class="form-control" type="text" name="username" id="username" placeholder="Username" required />
-							<div class="invalid-feedback">Enter your username.</div>
-						</div>
-
-						<div class="mb-3">
-							<input type="password" class="form-control" id="inputPassword" placeholder="Password" required />
-							<div class="invalid-feedback">Enter your password.</div>
-						</div>
-
-						<div class="mb-3">
-							<a href="forgotpassword.ejs">Forgot Password?</a>
+		<div class="col-md-3">
+			<div class="card h-100">
+				<img class="card-img-top" src="https://images.unsplash.com/photo-1616862486227-b34e18537e68?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80" alt="Card image cap">
+				<div class="card-body">
+				<h5 class="card-title">View Menu</h5>
+				<p class="card-text">Looking to view the menu? Click here!</p>
+				<br>
+				<div class ="row mx-auto">
+					
+				</div>
+					<div class="row justify-content-center">
+						<div class="col-auto">
+							<a class="btn btn-primary" href="/menu">View Menu</a>
 						</div>
 					</div>
-
-					<div class="card-footer">
-						<div class="row-p3">
-							<button type="submit" class="btn btn-primary">Log In</button>
-						</div>
-
-						<div class="row-py-6"></div>
-
-						<br />
-
-						<p>Don't have an account? <a href="register.ejs">Click Here</a></p>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
