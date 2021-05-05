@@ -11,7 +11,7 @@ module.exports.jsonDateBookings = async (req, res) => {
 	let { date } = req.params;
 	date = new Date(date);
 	const bookings = await Booking.find({ date: { $gte: date.setHours(00, 00, 00), $lte: date.setHours(23, 59, 59) } });
-	res.json(avalibility(bookings));
+	res.json(bookings);
 };
 
 module.exports.getTable = async (req, res) => {
@@ -22,12 +22,16 @@ module.exports.getTable = async (req, res) => {
 
 module.exports.registerBooking = async (req, res) => {
 	try {
-		let x = req
 		let { date, table } = req.body;
-		const user = req.user.id;
-		const newBooking = new Booking({ date, table, user });
-		await newBooking.save();
-		res.status(201);
+		if(req.user.id) {
+			const user = req.user.id;
+			const newBooking = new Booking({ date, table, user });
+			await newBooking.save();
+			res.status(201);
+			res.json({msg : 'success'})
+		} else {
+			res.status(401);
+		}
 	} catch (e) {
 		res.status(400);
 		req.flash('error', 'There was an error please try again soon');
