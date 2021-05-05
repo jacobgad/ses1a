@@ -6,34 +6,29 @@
 		<div class="col-md-6">
 			<div class="card shadow mt-3 p-6 col-py-6" style="width: 25rem">
 				<form action="/login" method="POST" class="needs-validation" novalidate>
-				<div class="card-body" style="height: 25rem">
-					<h5 class="card-title">Welcome Back!</h5>
-					
-					<div class="mb-3">
-						<label class="form-label" for="username">Username</label>
-						<input class="form-control" type="text" id="username" name="username" autofocus required />
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">Please enter your username.</div>
+					<div class="card-body" style="height: 25rem">
+						<h5 class="card-title">Welcome Back!</h5>
+						<div class="mb-3">
+							<label class="form-label" for="username">Username</label>
+							<input class="form-control" type="text" id="username" name="username" autofocus required />
+							<div class="valid-feedback">Looks good!</div>
+							<div class="invalid-feedback">Please enter your username.</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="password">Password</label>
+							<input class="form-control" type="password" id="password" name="password" required />
+							<div class="valid-feedback">Looks good!</div>
+							<div class="invalid-feedback">Please enter your password</div>
+						</div>
+						<a href="/forgot">Forgot Password?</a>	
 					</div>
-
-					<div class="mb-3">
-						<label class="form-label" for="password">Password</label>
-						<input class="form-control" type="password" id="password" name="password" required />
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">Please enter your password</div>
+					<div class="card-footer">
+						<div class="d-grid gap-3">
+							<button class="btn btn-primary">Log In</button>
+							<p>Don't have an account? <a href="/register">Click Here</a></p>
+						</div>
 					</div>
-
-					<a href="/forgot">Forgot Password?</a>	
-				</div>
-
-				<div class="card-footer">
-					<div class="d-grid gap-3">
-						<button class="btn btn-primary">Log In</button>
-						
-						<p>Don't have an account? <a href="/register">Click Here</a></p>
-					</div>
-				</div>
-			</form>
+				</form>
 			</div>
 		</div>
 	</div>
