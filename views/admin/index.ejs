@@ -1,9 +1,63 @@
 <% layout('/layouts/boilerplate') %>
 <div class="container mt-5">
 	<h1>Admin Page</h1>
-	<div>
-		<p><a class="btn btn-primary" href="/admin/staff">Add/Edit Staff</a></p>
-		<p><a class="btn btn-primary" href="/admin/discounts">Add/Edit Discounts</a></p>
-		<p><a class="btn btn-primary" href="/menu/new">Add Menu Item</a></p>
+	<div class="btn-group pt-3">
+		<a
+			class="btn btn-primary"
+			data-bs-toggle="collapse"
+			href="#addStaff"
+			role="button"
+			aria-expanded="false"
+			aria-controls="addStaff"
+		>
+			Add/Edit Staff
+		</a>
+		<a
+			class="btn btn-primary"
+			data-bs-toggle="collapse"
+			href="#addDiscounts"
+			role="button"
+			aria-expanded="false"
+			aria-controls="addDiscounts"
+		>
+			Add/Edit Discounts
+		</a>
+		<div class="btn-group" role="group">
+			<button
+				id="btnGroupDrop1"
+				type="button"
+				class="btn btn-primary dropdown-toggle"
+				data-bs-toggle="dropdown"
+				aria-expanded="false"
+			>
+				Menu Items
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				<li>
+					<a
+						class="dropdown-item"
+						data-bs-toggle="collapse"
+						href="#addMenu"
+						role="button"
+						aria-expanded="false"
+						aria-controls="addMenu"
+					>
+						Add Menu Item
+					</a>
+				</li>
+				<li><a class="dropdown-item" href="#">Dropdown link</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Collapse -->
+	<div class="collapse pt-3" id="addStaff">
+		<div class="card card-body"><%- include('staff') %></div>
+	</div>
+	<div class="collapse pt-3" id="addDiscounts">
+		<div class="card card-body"><%- include('discount') %></div>
+	</div>
+	<div class="collapse pt-3" id="addMenu">
+		<div class="card card-body"><%- include('../menu/new') %></div>
 	</div>
 </div>

@@ -2,8 +2,10 @@ const User = require('../models/user');
 const Discount = require('../models/discount');
 const Emails = require('../controllers/emails');
 
-module.exports.renderIndex = (req, res) => {
-	res.render('admin/index');
+module.exports.renderIndex = async (req, res) => {
+	const users = await User.find({});
+	const discounts = await Discount.find({});
+	res.render('admin/index', { users, discounts });
 };
 
 module.exports.renderFirstAdmin = async (req, res) => {
