@@ -11,6 +11,8 @@ module.exports.renderNew = (req, res) => {
 
 module.exports.createMenuItem = async (req, res) => {
 	const menuItem = new Menu(req.body.menuItem);
+	menuItem.image = {url: req.file.path, filename: req.file.filename}
+	console.log(menuItem)
 	await menuItem.save();
 	res.redirect('/admin')
 };
