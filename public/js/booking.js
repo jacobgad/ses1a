@@ -8,11 +8,11 @@ let url = "http://localhost:3000";
 
 async function getAvability(time) {
   const date =
-    time.getFullYear() + "-" + (time.getMonth() + 1 )+ "-" + time.getDate();
+    time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
 
   let dayBookings;
   let tables;
-  let availabeTables = new Set()
+  let availabeTables = new Set();
 
   try {
     const tableRes = await axios.get(url + "/bookings/table");
@@ -32,13 +32,15 @@ async function getAvability(time) {
     return tables;
   } else {
     dayBookings.forEach((booking) => {
-      const bookingTime  = new Date(booking.date)
+      const bookingTime = new Date(booking.date);
       if (
-        bookingTime >= time && bookingTime <= new Date(time.setHours(time.getHours() + 1))
+        bookingTime >= time &&
+        bookingTime <= new Date(time.setHours(time.getHours() + 1))
       ) {
-        tables.forEach(table => {
-          if(table.id != booking.table) {
-            availabeTables.add(table)
+        console.log("reached here");
+        tables.forEach((table) => {
+          if (table.id != booking.table) {
+            availabeTables.add(table);
           }
         });
       }
@@ -117,7 +119,6 @@ setTimeout(() => {
 if (currentDate.getHours() > 20) {
   document.getElementById("restrauntClosedWarning").hidden = false;
   yesterday.setDate(yesterday.getDate() + 1);
-  dateModel.setDate(dateModel.getDate() + 1);
 } else {
   timeSlots.forEach((timeSlot) => {
     if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
@@ -183,24 +184,32 @@ const app = new Vue({
     },
     submitForm: async function () {
       const bookingTime = document.getElementById("time").value;
-      let bookingDateTime = new Date();
-      bookingDateTime.setHours(
+      const bookingDateTime = new Date(
+        this.date.setHours(
           Number(bookingTime.substring(0, 2)),
           Number(bookingTime.substring(2, 4)),
           00
         )
+      );
       const table = await findTable(this.numValue, bookingDateTime);
 
-      const bookingPost = {
-        date: bookingDateTime,
-        table: table.id,
-      };
+      if (table) {
+        const bookingPost = {
+          date: bookingDateTime,
+          table: table.id,
+        };
+      } else {
+        this.open = false;
+      }
 
-       axios.post(url + "/bookings", bookingPost).then((res) => {
-         this.open = false;
-       }).catch((err) => {
-         console.log(err)
-      });
+      axios
+        .post(url + "/bookings", bookingPost)
+        .then((res) => {
+          this.open = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 });
