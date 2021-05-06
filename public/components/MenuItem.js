@@ -10,7 +10,7 @@ app.component('menu-item', {
 		<div class="card mb-3 bg-transparent border-0" style="max-width: 540px">
 			<div class="row g-0">
 				<div class="col-md-4 align-middle">
-					<img :src="menuItem.imageUrl" class="pt-3 img-fluid rounded-3"/>
+					<img :src="menuItem.image.url" class="pt-3 img-fluid rounded-3"/>
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
