@@ -193,14 +193,10 @@ const app = new Vue({
       );
       const table = await findTable(this.numValue, bookingDateTime);
 
-      if (table) {
-        const bookingPost = {
-          date: bookingDateTime,
-          table: table.id,
-        };
-      } else {
-        this.open = false;
-      }
+      const bookingPost = {
+        date: bookingDateTime,
+        table: table.id,
+      };
 
       axios
         .post(url + "/bookings", bookingPost)
