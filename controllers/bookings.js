@@ -28,9 +28,11 @@ module.exports.registerBooking = async (req, res) => {
 			const newBooking = new Booking({ date, table, user });
 			await newBooking.save();
 			res.status(201);
+			req.flash('success', 'Booking successfully made');
 			res.json({msg : 'success'})
 		} else {
 			res.status(401);
+			req.flash('error', 'Please Log in and try again');
 		}
 	} catch (e) {
 		res.status(400);
