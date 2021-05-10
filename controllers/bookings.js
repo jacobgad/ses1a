@@ -20,6 +20,16 @@ module.exports.getTable = async (req, res) => {
 	res.json(tableRes);
 }
 
+module.exports.findUsersBookings = async (req, res) => {
+	if(req.user.id){
+		const usersBookings = await Booking.find({user: req.user.id})
+		res.status(201);
+		res.json(usersBookings);
+	} else {
+		res.status(400);
+	}
+}
+
 module.exports.registerBooking = async (req, res) => {
 	try {
 		let { date, table } = req.body;
