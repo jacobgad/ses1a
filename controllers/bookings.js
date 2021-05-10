@@ -22,7 +22,7 @@ module.exports.getTable = async (req, res) => {
 
 module.exports.findUsersBookings = async (req, res) => {
 	if(req.user.id){
-		const usersBookings = await Booking.find({user: req.user.id})
+		const usersBookings = await Booking.find({})
 		res.status(201);
 		res.json(usersBookings);
 	} else {
