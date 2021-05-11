@@ -196,6 +196,7 @@ const app = new Vue({
       const bookingPost = {
         date: bookingDateTime,
         table: table.id,
+        noGuests: this.numValue
       };
 
       axios

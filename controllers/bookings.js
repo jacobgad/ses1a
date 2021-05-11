@@ -30,10 +30,10 @@ module.exports.getTable = async (req, res) => {
 
 module.exports.registerBooking = async (req, res) => {
   try {
-    let { date, table } = req.body;
+    let { date, table, noGuests } = req.body;
     if (req.user.id) {
       const user = req.user.id;
-      const newBooking = new Booking({ date, table, user });
+      const newBooking = new Booking({ date, table, noGuests, user });
       await newBooking.save();
       res.status(201);
       req.flash("success", "Booking successfully made");
