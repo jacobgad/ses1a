@@ -9,8 +9,6 @@ router.route('/')
 
 router.post('/new', booking.renderNewBooking);
 
-router.get('/getuserbookings', booking.findUsersBookings);
-
 router.get('/table', booking.getTable);
 
 router.get('/:date', booking.jsonDateBookings);

@@ -3,86 +3,129 @@
 <link rel="stylesheet" href="css/bookings.css" />
 
 <body>
-  <div id="app">
-    <b-sidebar
-      type="is-light"
-      :fullheight="true"
-      :overlay="true"
-      :right="true"
-      v-model="open"
-    >
-      <h1 class="headingWrapper">Make a booking</h1>
-      <div>
-        <b-message
-          title="Warning"
-          type="is-warning"
-          aria-close-label="Close message"
-          hidden="true"
-          id="restrauntClosedWarning"
-          size="is-small"
-        >
-          The we are no longer taking booking for today. You can only make
-          booking for future dates.
-        </b-message>
-      </div>
-      <form action="/book" method="POST">
-        <div class="headingWrapper">
-          <h3>Select a date</h3>
-        </div>
-        <div class="formItemWrapper" id="date-picker">
-          <b-datepicker
-            v-model="date"
-            inline
-            name="date"
-            id="date"
-            :min-date="minDate"
-            @input="dateChange"
-            @change-month="monthChange"
-            :day-names="dayNames"
+  <div id="app" class="container">
+    <div class="row pt-5">
+      <div class="booking-container text-white">
+        <h1>Manage Your Bookings</h1>
+        <div>
+          <b-button class="new-booking" @click="open = true"
+            >New Booking</b-button
           >
-          </b-datepicker>
         </div>
-        <div class="headingWrapper">
-          <h3>Select a time</h3>
-        </div>
-        <div class="formItemWrapper">
-          <select
-            class="form-select form-select-lg mb-3"
-            aria-label=".form-select-lg example"
-            name="time"
-            id="time"
-          >
-            <option id="1700" value="1700">5:00pm</option>
-            <option id="1730" value="1730">5:30pm</option>
-            <option id="1800" value="1800">6:00pm</option>
-            <option id="1830" value="1830">6:30pm</option>
-            <option id="1900" value="1900">7:00pm</option>
-            <option id="1930" value="1830">7:30pm</option>
-            <option id="2000" value="2000">8:00pm</option>
-            <option id="2030" value="2030">8:30pm</option>
-          </select>
-        </div>
-        <div class="headingWrapper">
-          <h3>Number of People</h3>
-        </div>
-        <div class="formItemWrapper">
-          <b-field>
-            <b-numberinput
-              :min="1"
-              :max="6"
-              v-model="numValue"
-              name="number"
-              id="number"
-            ></b-numberinput>
-          </b-field>
-        </div>
-        <div class="formItemWrapper">
-          <b-button @click="submitForm" type="is-primary">Book</b-button>
-        </div>
-      </form>
-    </b-sidebar>
+        <ul>
+          <% usersBookings.forEach(booking => { if (booking.date > new
+          Date()){%>
+          <li>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= `Booking On ${booking.date.toLocaleString('en-us', {
+                  weekday: 'long' })}
+                  ${booking.date.getDate()}/${booking.date.getMonth()}/${booking.date.getFullYear()}`%>
+                </h5>
+                <p class="card-text"><%=`Your table is ${booking.table}`%></p>
+                <button type="button" class="btn btn-primary" onclick="">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger" onclick="">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+          <% }}) %>
+        </ul>
 
-    <b-button @click="open = true">Show</b-button>
+        <!-- sidebar content -->
+
+        <b-sidebar
+          type="is-light"
+          :fullheight="true"
+          :overlay="true"
+          :right="true"
+          v-model="open"
+        >
+          <h1 class="headingWrapper">Make a booking</h1>
+          <div>
+            <b-message
+              title="Warning"
+              type="is-warning"
+              aria-close-label="Close message"
+              hidden="true"
+              id="restrauntClosedWarning"
+              size="is-small"
+            >
+              The we are no longer taking booking for today. You can only make
+              booking for future dates.
+            </b-message>
+          </div>
+          <form action="/book" method="POST">
+            <div class="headingWrapper">
+              <h3>Select a date</h3>
+            </div>
+            <div class="formItemWrapper" id="date-picker">
+              <b-datepicker
+                v-model="date"
+                inline
+                name="date"
+                id="date"
+                :min-date="minDate"
+                @input="dateChange"
+                @change-month="monthChange"
+                :day-names="dayNames"
+              >
+              </b-datepicker>
+            </div>
+            <div class="headingWrapper">
+              <h3>Select a time</h3>
+            </div>
+            <div class="item-wrapper">
+              <select
+                class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example"
+                name="time"
+                id="time"
+              >
+                <option id="1700" value="1700">5:00pm</option>
+                <option id="1730" value="1730">5:30pm</option>
+                <option id="1800" value="1800">6:00pm</option>
+                <option id="1830" value="1830">6:30pm</option>
+                <option id="1900" value="1900">7:00pm</option>
+                <option id="1930" value="1830">7:30pm</option>
+                <option id="2000" value="2000">8:00pm</option>
+                <option id="2030" value="2030">8:30pm</option>
+              </select>
+            </div>
+            <div class="headingWrapper">
+              <h3>Number of People</h3>
+            </div>
+            <div class="item-wrapper">
+              <b-field>
+                <b-numberinput
+                  :min="1"
+                  :max="6"
+                  v-model="numValue"
+                  name="number"
+                  id="number"
+                ></b-numberinput>
+              </b-field>
+            </div>
+            <div class="drawer-footer">
+              <div class="cancel-button">
+                <b-button @click="cancelForm" type="is-danger" expanded
+                  >Cancel</b-button
+                >
+              </div>
+              <div class="submit-button">
+                <b-button @click="submitForm" type="is-primary" expanded
+                  >Book</b-button
+                >
+              </div>
+            </div>
+          </form>
+        </b-sidebar>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>

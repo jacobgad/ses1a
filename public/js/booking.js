@@ -207,5 +207,8 @@ const app = new Vue({
           console.log(err);
         });
     },
+    cancelForm: function(){
+      this.open = false;
+    }
   },
 });
