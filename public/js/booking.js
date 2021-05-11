@@ -4,7 +4,7 @@ let yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
 
-let url = "http://localhost:3000";
+let url = document.URL;
 
 async function getAvability(time) {
   const date =
@@ -15,14 +15,14 @@ async function getAvability(time) {
   let availabeTables = new Set();
 
   try {
-    const tableRes = await axios.get(url + "/bookings/table");
+    const tableRes = await axios.get(url + "/table");
     tables = tableRes.data;
   } catch (error) {
     console.log(error);
   }
 
   try {
-    const bookingRes = await axios.get(url + "/bookings/" + date);
+    const bookingRes = await axios.get(url + "/" + date);
     dayBookings = await bookingRes.data;
   } catch (error) {
     console.log(error);
@@ -199,7 +199,7 @@ const app = new Vue({
       };
 
       axios
-        .post(url + "/bookings", bookingPost)
+        .post(url + "/", bookingPost)
         .then((res) => {
           this.open = false;
         })
