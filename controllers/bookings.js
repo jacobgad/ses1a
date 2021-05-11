@@ -1,5 +1,7 @@
 const Booking = require("../models/Booking");
 const Table = require("../models/Table");
+const mongoose = require('mongoose');
+const { response } = require("express");
 
 module.exports.renderBooking = async (req, res) => {
   const bookings = await Booking.find({
@@ -48,6 +50,19 @@ module.exports.registerBooking = async (req, res) => {
     res.json(e);
   }
 };
+
+module.exports.deleteBooking = async (req, res) => {
+  const bookingID = req.body.bookingId;
+  Booking.findByIdAndRemove(bookingID, (err) => {
+    if (!err) {
+      res.status(200).send
+      req.flash("warning", "Booking Deleted");
+    } else {
+      res.status(400).send
+      req.flash("deleted", "Something went wrong please call the restraunt");
+    }
+  })
+}
 
 module.exports.renderNewBooking = async (req, res) => {
   const bookings = await Booking.find({

@@ -50,6 +50,11 @@ async function getAvability(time) {
   return Array.from(availabeTables);
 }
 
+function deleteBooking(bookingID) {
+  const booking = {data: {bookingId : bookingID}}
+  axios.delete(url, booking)
+}
+
 async function findTable(num, time) {
   let suitableTables = [];
 

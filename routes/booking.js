@@ -5,7 +5,8 @@ const booking = require('../controllers/bookings');
 
 router.route('/')
   .get(booking.renderBooking)
-  .post(booking.registerBooking);
+  .post(booking.registerBooking)
+  .delete(booking.deleteBooking)
 
 router.post('/new', booking.renderNewBooking);
 
