@@ -14,24 +14,26 @@ app.component('menu-index', {
 			<form> <!--action="/filter" method="POST"-->
 				<div class="mb-3">
 					<label for="exampleFormControlInput1" class="form-label">Name</label>
-					<input type="text" class="form-control" id="name" placeholder="Burger">
+					<input  v-model="menuItemName" type="text" class="form-control" id="name" placeholder="Burger">
 				</div>
 
-					<select class="mb-3 mw-50 form-select" aria-label="Select course type">
-						<option selected>Course Type</option>
-						<option value="1">Entree</option>
-						<option value="2">Main</option>
-						<option value="3">Dessert</option>
-					</select>
+					<div id= "v-model-select">
+						<select v-model="selectedCourseType" class="mb-3 mw-50 form-select" aria-label="Select course type">
+							<option selected>Course Type</option>
+							<option value="Entree">Entree</option>
+							<option value="Main">Main</option>
+							<option value="Dessert">Dessert</option>
+						</select>
+					</div>
 
 					<div class="mb-3 justify-content-end">
 						<label class="form-label">Price:</label>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="lowHighRadio" value="option1">
+						<div id="v-model-radiobutton" class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="lowHighRadio" value="option1">
 							<label class="form-check-label" for="inlineRadio1">Low-High</label>
 						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="highLowRadio" value="option2">
+						<div id="v-model-radiobutton" class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="highLowRadio" value="option2">
 							<label class="form-check-label" for="inlineRadio2">High-Low</label>
 						</div>
 					</div>
@@ -39,7 +41,8 @@ app.component('menu-index', {
 			</form>
 		</div>
 	</div>
-      <menu-item v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
+      <menu-item v-if="filteredItems" v-for="filteredItems in menuItems" :key="filteredItems.id" :menuItem="filteredItems" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
+      <menu-item v-else v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
     </ul>
 	</div>
   <div class="col d-flex flex-column lr-opacity pt-5">
@@ -59,8 +62,12 @@ app.component('menu-index', {
 	data() {
 		return {
 			menuItems: [],
+			filteredItems: [],
 			cart: [],
 			total: 0.0,
+			menuItemName: '',
+			selectedCourseType: '',
+			priceFilter: '',
 		};
 	},
 	methods: {
@@ -83,6 +90,15 @@ app.component('menu-index', {
 					if (this.cart[i].quant === 0) this.cart.splice(i, 1);
 				}
 			}
+		},
+		filter() {
+			//For each item in menuItems 
+			this.filteredItems = menuItems.filter(menuItem => (menuItem.name.localeCompare(this.menuItemName) === 0));
+			this.filteredItems = this.filteredItems.filter(filteredItem => (filteredItem.course.localeCompare(this.selectedCourseType) === 0));
+			
+			// this.filteredItems.sort(function (a, b) {
+			// 	return a.price - b.price;
+			//   });
 		},
 	},
 	created() {
