@@ -16,6 +16,7 @@ const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
 const bookingRoutes = require('./routes/booking');
 const menuRoutes = require('./routes/menu');
+const galleryRoutes = require('./routes/gallery');
 const { noAdmin } = require('./middleware/admin');
 
 //Connect to Mongo Database
@@ -92,6 +93,7 @@ app.use('/', userRoutes);
 app.use('/admin', adminRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/menu', menuRoutes);
+app.use('/gallery', galleryRoutes);
 
 app.get('/contact', (req, res) => {
 	res.render('contact');
