@@ -37,12 +37,12 @@ app.component('menu-index', {
 							<label class="form-check-label" for="inlineRadio2">High-Low</label>
 						</div>
 					</div>
-					<button class="btn btn-primary mx-auto" type="submit" v-on:click="filter">Search</button>
+					<button class="btn btn-primary mx-auto me-2" type="submit" @click="filter">Search</button>
+					<button class="btn btn-secondary mx-auto" type="submit" @click="clearFilter">Clear</button>
 			</form>
 		</div>
 	</div>
-      <menu-item v-if="filteredItems" v-for="filteredItems in menuItems" :key="filteredItems.id" :menuItem="filteredItems" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
-      <menu-item v-else v-for="menuItem in menuItems" :key="menuItem.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
+      <menu-item v-for="menuItem in filteredItems" :key="filteredItems.id" :menuItem="menuItem" @add-to-cart='addToCart' @remove-from-cart='removeFromCart'></menu-item>
     </ul>
 	</div>
   <div class="col d-flex flex-column lr-opacity pt-5">
@@ -92,30 +92,40 @@ app.component('menu-index', {
 			}
 		},
 		filter() {
-			//For each item in menuItems 
-			//this.filteredItems = menuItems.filter(menuItem => (menuItem.name.localeCompare(this.menuItemName) === 0));
-			//this.filteredItems = this.filteredItems.filter(filteredItem => (filteredItem.course.localeCompare(this.selectedCourseType) === 0));
-			//this.filteredItems = this.menuItems;
-			for (const item of menuItems) {
-				filteredItems.push(copy(item));
-			}
-
-			if (priceFilter == 'lowHigh') { 
-				this.filteredItems.sort(function (a, b) {
-				return a.price - b.price;
-				});
-			} else if (priceFilter == 'Highlow') {
-				this.filteredItems.sort(function (a, b) {
-					return b.price - a.price;
-					});	
+			this.filteredItems = [];
+			for (menuItem of this.menuItems) {
+				if (menuItem.course == this.selectedCourseType) this.filteredItems.push(menuItem);
 			}
 		},
+		clearFilter() {
+			this.filteredItems = this.menuItems;
+		},
+		// filter() {
+		// 	//For each item in menuItems
+		// 	//this.filteredItems = menuItems.filter(menuItem => (menuItem.name.localeCompare(this.menuItemName) === 0));
+		// 	//this.filteredItems = this.filteredItems.filter(filteredItem => (filteredItem.course.localeCompare(this.selectedCourseType) === 0));
+		// 	//this.filteredItems = this.menuItems;
+		// 	for (const item of menuItems) {
+		// 		filteredItems.push(copy(item));
+		// 	}
+
+		// 	if (priceFilter == 'lowHigh') {
+		// 		this.filteredItems.sort(function (a, b) {
+		// 		return a.price - b.price;
+		// 		});
+		// 	} else if (priceFilter == 'Highlow') {
+		// 		this.filteredItems.sort(function (a, b) {
+		// 			return b.price - a.price;
+		// 			});
+		// 	}
+		// },
 	},
 	created() {
 		axios
 			.get('/menu/json')
 			.then((response) => {
 				this.menuItems = response.data;
+				this.filteredItems = response.data;
 			})
 			.catch((error) => {
 				console.log(error);
