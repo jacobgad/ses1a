@@ -29,11 +29,11 @@ app.component('menu-index', {
 					<div class="mb-3 justify-content-end">
 						<label class="form-label">Price:</label>
 						<div id="v-model-radiobutton" class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="lowHighRadio" value="option1">
+							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="lowHighRadio" value="lowHigh">
 							<label class="form-check-label" for="inlineRadio1">Low-High</label>
 						</div>
 						<div id="v-model-radiobutton" class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="highLowRadio" value="option2">
+							<input class="form-check-input" type="radio" v-model="priceFilter" name="inlineRadioOptions" id="highLowRadio" value="highLow">
 							<label class="form-check-label" for="inlineRadio2">High-Low</label>
 						</div>
 					</div>
@@ -93,12 +93,22 @@ app.component('menu-index', {
 		},
 		filter() {
 			//For each item in menuItems 
-			this.filteredItems = menuItems.filter(menuItem => (menuItem.name.localeCompare(this.menuItemName) === 0));
-			this.filteredItems = this.filteredItems.filter(filteredItem => (filteredItem.course.localeCompare(this.selectedCourseType) === 0));
-			
-			// this.filteredItems.sort(function (a, b) {
-			// 	return a.price - b.price;
-			//   });
+			//this.filteredItems = menuItems.filter(menuItem => (menuItem.name.localeCompare(this.menuItemName) === 0));
+			//this.filteredItems = this.filteredItems.filter(filteredItem => (filteredItem.course.localeCompare(this.selectedCourseType) === 0));
+			//this.filteredItems = this.menuItems;
+			for (const item of menuItems) {
+				filteredItems.push(copy(item));
+			}
+
+			if (priceFilter == 'lowHigh') { 
+				this.filteredItems.sort(function (a, b) {
+				return a.price - b.price;
+				});
+			} else if (priceFilter == 'Highlow') {
+				this.filteredItems.sort(function (a, b) {
+					return b.price - a.price;
+					});	
+			}
 		},
 	},
 	created() {
