@@ -7,6 +7,7 @@ module.exports = [
 			filename: 't-mcdonalds-Big-Mac.jpg',
 		},
 		price: 10.0,
+		course: 'Main'
 	},
 	{
 		name: 'Cheeseburger',
@@ -16,5 +17,6 @@ module.exports = [
 			filename: 'why-mcdonald-cheeseburger-isnt-bad-for-health-1.jpg',
 		},
 		price: 5.0,
+		course: 'Entree'
 	},
 ];

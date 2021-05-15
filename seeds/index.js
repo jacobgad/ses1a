@@ -19,7 +19,7 @@ const seedDB = async () => {
 	await MenuItem.deleteMany({});
 	for (menuItem of seedMenuItems) {
 		const { name, description, image, price, course } = menuItem;
-		const newMenuItem = new MenuItem({ name, description, image, price});
+		const newMenuItem = new MenuItem({ name, description, image, price, course});
 		await newMenuItem.save();
 	}
 };
