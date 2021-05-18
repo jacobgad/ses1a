@@ -11,7 +11,7 @@ app.component('menu-index', {
 				  </p>
 				  <div class="collapse" id="collapseExample">
 		<div class="card card-body text-dark lr-opacity">
-			<form> <!--action="/filter" method="POST"-->
+			<form> action="/filter" method="POST"
 				<div class="mb-3">
 					<label for="exampleFormControlInput1" class="form-label">Name</label>
 					<input  v-model="menuItemName" type="text" class="form-control" id="name" placeholder="Burger">
@@ -37,8 +37,8 @@ app.component('menu-index', {
 							<label class="form-check-label" for="inlineRadio2">High-Low</label>
 						</div>
 					</div>
-					<button class="btn btn-primary mx-auto me-2" type="submit" @click="filter">Search</button>
-					<button class="btn btn-secondary mx-auto" type="submit" @click="clearFilter">Clear</button>
+						<button class="d-inline btn btn-primary mx-auto me-2" type="button" @click="filter">Search</button>
+						<button class="d-inline btn btn-secondary mx-auto" type="button" @click="clearFilter">Clear</button>
 			</form>
 		</div>
 	</div>
