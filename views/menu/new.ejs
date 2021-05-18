@@ -1,0 +1,45 @@
+<% layout('/layouts/boilerplate') %>
+<%- include('../partials/adminNav.ejs') %>
+
+<div class="container pt-5">
+	<div class="row">
+		<h1 class="text-center">New Menu Item</h1>
+		<div class="col-md-6 offset-md-3">
+			<form action="/menu" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+				<div class="mb-3">
+					<label class="form-label" for="title">Name</label>
+					<input class="form-control" type="text" name="menuItem[name]" id="name" required />
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="price">Price</label>
+					<div class="input-group">
+						<span class="input-group-text" id="price">$</span>
+						<input
+							type="text"
+							class="form-control"
+							placeholder="0.00"
+							aria-label="price"
+							aria-describedby="price"
+							name="menuItem[price]"
+							required
+						/>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="description">Description</label>
+					<textarea class="form-control" type="text" name="menuItem[description]" id="description" required></textarea>
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+				<div class="mb-3">
+					<label for="image" class="form-label">Choose Image</label>
+					<input class="form-control" type="file" id="image" name="image" />
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-success">Add Menu Item</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
