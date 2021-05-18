@@ -22,5 +22,6 @@ router.route('/discounts')
 	.post(admin.newDiscount)
   .delete(admin.deleteDiscount);
 
+router.get('/menu', isLoggedIn, isNotUser, admin.renderMenu)
 
 module.exports = router;

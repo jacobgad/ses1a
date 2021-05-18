@@ -1,0 +1,7 @@
+body {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+		url('https://cdn.shopify.com/s/files/1/0449/4209/8582/products/Blueberry_Blue_Macarons_12Pack_WDM12BL.jpg?v=1600346353&fbclid=IwAR2ykEyWK90qKcKwRUXJ9LOBCP_Z9rY1B9ZYpnRANnCnUODv9tWfiSJdjeQ');
+	background-size: cover;
+	background-position: center;
+}
