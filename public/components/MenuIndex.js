@@ -1,7 +1,7 @@
 app.component('menu-index', {
 	props: {},
 	template: /*html*/ `
-  <div class="col-6 mid-opacity text-white vh-100 overflow-auto">
+  <div class="col-6 mid-opacity text-white overflow-auto">
     <ul class="list-group list-group-flush">
       <li class="list-group-item bg-transparent border-white"><h1>MAIN COURSES</h1></li>
 	  <p>
