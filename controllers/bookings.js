@@ -11,9 +11,17 @@ module.exports.renderBooking = async (req, res) => {
     let usersBookings = await Booking.find({ user: req.user.id });
     res.render("bookings/index", { usersBookings });
   } else {
-    res.render("users/login");
+    res.redirect('/login')
   }
 };
+
+module.exports.updateBooking = async (req, res) => {
+  const bookingID = req.query.id;
+  let { date, table, noGuests } = req.body;
+  const user = req.user.id;
+
+  (await Booking.findByIdAndUpdate({bookingID}, { date, table, noGuests, user })).exec();
+}
 
 module.exports.jsonDateBookings = async (req, res) => {
   let { date } = req.params;
@@ -43,6 +51,7 @@ module.exports.registerBooking = async (req, res) => {
     } else {
       res.status(401);
       req.flash("error", "Please Log in and try again");
+      res.redirect("users/login");
     }
   } catch (e) {
     res.status(400);
@@ -55,8 +64,9 @@ module.exports.deleteBooking = async (req, res) => {
   const bookingID = req.body.bookingId;
   Booking.findByIdAndRemove(bookingID, (err) => {
     if (!err) {
+      req.flash("success", "Booking Deleted");
       res.status(200).send
-      req.flash("warning", "Booking Deleted");
+      res.redirect('/bookings')
     } else {
       res.status(400).send
       req.flash("deleted", "Something went wrong please call the restraunt");
@@ -71,6 +81,13 @@ module.exports.renderNewBooking = async (req, res) => {
   let bookedSlots = avalibility(bookings);
   res.render("bookings/new", { bookedSlots });
 };
+
+module.exports.getBookingByID = async (req, res) => {
+  const bookingID = req.query.id;
+  const booking = await Booking.findById(bookingID).exec();
+
+  res.json(booking)
+}
 
 //Helper Functions
 function avalibility(bookings) {

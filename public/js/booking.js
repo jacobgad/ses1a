@@ -6,6 +6,14 @@ const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
 
 let url = document.URL;
 
+function getFullTime (min) {
+  if (min == 0) {
+    return '00'
+  } else if (min == 30) {
+    return '30'
+  }
+}
+
 async function getAvability(time) {
   const date =
     time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
@@ -48,6 +56,22 @@ async function getAvability(time) {
   }
 
   return Array.from(availabeTables);
+}
+
+async function editBooking(bookingID) {
+  app.open = true;
+  app.isUpdate = true;
+  app.bookingID = bookingID;
+
+  axios.get( url + '/editBooking', {params: {id : bookingID}})
+    .then((res) => {
+      app.date = new Date(res.data.date);
+      app.numValue = res.data.noGuests;
+
+      const time = app.date.getHours() + getFullTime(app.date.getMinutes())
+      
+      document.getElementById("time").value = time
+    })
 }
 
 function deleteBooking(bookingID) {
@@ -144,6 +168,8 @@ const app = new Vue({
       minDate: yesterday,
       incrementMinutes: 30,
       numValue: 1,
+      isUpdate: false,
+      bookingID: "",
     };
   },
   methods: {
@@ -213,8 +239,35 @@ const app = new Vue({
           console.log(err);
         });
     },
+    openDrawer: function() {
+      this.open = true;
+      this.isUpdate = false;
+      this.bookingID = "";
+    },
+
     cancelForm: function(){
       this.open = false;
+    },
+    updateForm: async function () {
+      const bookingTime = document.getElementById("time").value;
+      const bookingDateTime = new Date(
+        this.date.setHours(
+          Number(bookingTime.substring(0, 2)),
+          Number(bookingTime.substring(2, 4)),
+          00
+        )
+      );
+      const table = await findTable(this.numValue, bookingDateTime);
+
+      const bookingPost = {
+        date: bookingDateTime,
+        table: table.id,
+        noGuests: this.numValue
+      };
+
+      axios.put(url + "/", bookingPost, {params: {id : this.bookingID}}).then(
+        this.open = false
+      )
     }
   },
 });

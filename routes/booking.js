@@ -1,18 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const booking = require('../controllers/bookings');
+const booking = require("../controllers/bookings");
 
-router.route('/')
+router
+  .route("/")
   .get(booking.renderBooking)
   .post(booking.registerBooking)
   .delete(booking.deleteBooking)
+  .put(booking.updateBooking)
 
-router.post('/new', booking.renderNewBooking);
+router.get("/editBooking", booking.getBookingByID);
 
-router.get('/table', booking.getTable);
+router.post("/new", booking.renderNewBooking);
 
-router.get('/:date', booking.jsonDateBookings);
+router.get("/table", booking.getTable);
 
+router.get("/:date", booking.jsonDateBookings);
 
 module.exports = router;

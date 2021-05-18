@@ -8,7 +8,7 @@
       <div class="booking-container text-white">
         <h1>Manage Your Bookings</h1>
         <div>
-          <b-button class="new-booking" @click="open = true"
+          <b-button class="new-booking" @click="openDrawer()"
             >New Booking</b-button
           >
         </div>
@@ -21,13 +21,13 @@
                 <h5 class="card-title">
                   <%= `Booking On ${booking.date.toLocaleString('en-us', {
                   weekday: 'long' })}
-                  ${booking.date.getDate()}/${booking.date.getMonth()}/${booking.date.getFullYear()}`%>
+                  ${booking.date.getDate()}/${booking.date.getMonth()}/${booking.date.getFullYear()} at ${booking.date.toLocaleTimeString().slice(0,4)} PM`%>
                 </h5>
                 <p class="card-text">
                   <%=`Booking for ${booking.noGuests} number of guests`%>
                 </p>
                 <p class="card-text"><%=`Your table is ${booking.table}`%></p>
-                <button type="button" class="btn btn-primary" onclick="">
+                <button type="button" class="btn btn-primary" onclick="editBooking('<%= booking._id %>')">
                   Edit
                 </button>
                 <button
@@ -53,7 +53,8 @@
       :right="true"
       v-model="open"
     >
-      <h1 class="headingWrapper">Make a booking</h1>
+      <h1 v-if="isUpdate" class="headingWrapper">Update a booking</h1>
+      <h1 v-else class="headingWrapper">Make a booking</h1>
       <div>
         <b-message
           title="Warning"
@@ -125,7 +126,9 @@
             >
           </div>
           <div class="submit-button">
-            <b-button @click="submitForm" type="is-primary" expanded
+            <b-button v-if="isUpdate" @click="updateForm" type="is-primary" expanded
+            >Update</b-button>
+            <b-button v-else @click="submitForm" type="is-primary" expanded
               >Book</b-button
             >
           </div>
