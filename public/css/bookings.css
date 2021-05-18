@@ -1,5 +1,35 @@
+html, body {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('https://img.theculturetrip.com/1440x/smart/wp-content/uploads/2020/11/2br19p4.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
+.booking-container{
+  background-color: rgba(112, 112, 112, 0.8);
+  height: 100vh;
+}
+
+.new-booking{
+  margin: 10px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.card{
+  margin: 5px auto;
+  width: 95%;
+}
+
 .b-sidebar .sidebar-content {
     width: 380px;
+    padding-top: 70px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
   .b-sidebar .formItemWrapper {
@@ -14,14 +44,16 @@
     background-color: #e9ecef;
   }
 
+  .b-sidebar .item-wrapper {
+    margin:0px 10px ;
+  }
+
   .drawer-footer {
-    position: absolute;
-    bottom: 0;
-    padding: 10px;
+    margin: 10px;
   }
 
   .btn-fullwidth {
-    width: 330px;
+    width: 20.625rem;
   }
 
   .pagination-previous {
@@ -32,5 +64,22 @@
     opacity: 0.5;
     pointer-events: none !important;
   }
+  
+  .cancel-button {
+    float: left;
+    margin-right: 1.75rem;
+    margin-bottom: 10px;
+  }
 
+  .cancel-button .button{
+    width: 9.375rem;
+  }
+
+  .submit-button {
+    float: right;
+    margin-bottom: 10px;
+  }
+  .submit-button .button{
+    width: 9.375rem;
+  }
   

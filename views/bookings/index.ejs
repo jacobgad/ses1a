@@ -3,7 +3,49 @@
 <link rel="stylesheet" href="css/bookings.css" />
 
 <body>
-  <div id="app">
+  <div id="app" class="container">
+    <div class="row pt-5">
+      <div class="booking-container text-white">
+        <h1>Manage Your Bookings</h1>
+        <div>
+          <b-button class="new-booking" @click="openDrawer()"
+            >New Booking</b-button
+          >
+        </div>
+        <ul>
+          <% usersBookings.forEach(booking => { if (booking.date > new
+          Date()){%>
+          <li>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= `Booking On ${booking.date.toLocaleString('en-us', {
+                  weekday: 'long' })}
+                  ${booking.date.getDate()}/${booking.date.getMonth()}/${booking.date.getFullYear()} at ${booking.date.toLocaleTimeString().slice(0,4)} PM`%>
+                </h5>
+                <p class="card-text">
+                  <%=`Booking for ${booking.noGuests} number of guests`%>
+                </p>
+                <p class="card-text"><%=`Your table is ${booking.table}`%></p>
+                <button type="button" class="btn btn-primary" onclick="editBooking('<%= booking._id %>')">
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onclick="deleteBooking('<%= booking._id %>')"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+          <% }}) %>
+        </ul>
+
+        <!-- sidebar content -->
+      </div>
+    </div>
     <b-sidebar
       type="is-light"
       :fullheight="true"
@@ -11,7 +53,8 @@
       :right="true"
       v-model="open"
     >
-      <h1 class="headingWrapper">Make a booking</h1>
+      <h1 v-if="isUpdate" class="headingWrapper">Update a booking</h1>
+      <h1 v-else class="headingWrapper">Make a booking</h1>
       <div>
         <b-message
           title="Warning"
@@ -45,27 +88,27 @@
         <div class="headingWrapper">
           <h3>Select a time</h3>
         </div>
-        <div class="formItemWrapper">
+        <div class="item-wrapper">
           <select
             class="form-select form-select-lg mb-3"
             aria-label=".form-select-lg example"
             name="time"
             id="time"
           >
-            <option id="1700" value="17:00:00">5:00pm</option>
-            <option id="1730" value="17:30:00">5:30pm</option>
-            <option id="1800" value="18:00:00">6:00pm</option>
-            <option id="1830" value="18:30:00">6:30pm</option>
-            <option id="1900" value="19:00:00">7:00pm</option>
-            <option id="1930" value="18:30:00">7:30pm</option>
-            <option id="2000" value="20:00:00">8:00pm</option>
-            <option id="2030" value="20:30:00">8:30pm</option>
+            <option id="1700" value="1700">5:00pm</option>
+            <option id="1730" value="1730">5:30pm</option>
+            <option id="1800" value="1800">6:00pm</option>
+            <option id="1830" value="1830">6:30pm</option>
+            <option id="1900" value="1900">7:00pm</option>
+            <option id="1930" value="1830">7:30pm</option>
+            <option id="2000" value="2000">8:00pm</option>
+            <option id="2030" value="2030">8:30pm</option>
           </select>
         </div>
         <div class="headingWrapper">
           <h3>Number of People</h3>
         </div>
-        <div class="formItemWrapper">
+        <div class="item-wrapper">
           <b-field>
             <b-numberinput
               :min="1"
@@ -76,13 +119,22 @@
             ></b-numberinput>
           </b-field>
         </div>
-        <div class="formItemWrapper">
-          <b-button @click="submitForm" type="is-primary">Book</b-button>
+        <div class="drawer-footer">
+          <div class="cancel-button">
+            <b-button @click="cancelForm" type="is-danger" expanded
+              >Cancel</b-button
+            >
+          </div>
+          <div class="submit-button">
+            <b-button v-if="isUpdate" @click="updateForm" type="is-primary" expanded
+            >Update</b-button>
+            <b-button v-else @click="submitForm" type="is-primary" expanded
+              >Book</b-button
+            >
+          </div>
         </div>
       </form>
     </b-sidebar>
-
-    <b-button @click="open = true">Show</b-button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -93,114 +145,7 @@
 
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <script>
-    const currentDate = new Date();
-
-    let dateModel = currentDate;
-
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    const minTime = new Date("17:00:00");
-    const maxTime = new Date("21:00:00");
-
-    const timeSlots = [1700, 1730, 1800, 1830, 1900, 1930, 2000, 2030];
-
-    setTimeout(() => {
-      var prevMonthBtn = document
-        .getElementById("date-picker")
-        .getElementsByClassName("pagination-previous")[0];
-      prevMonthBtn.classList.add("disabled");
-      prevMonthBtn.childNodes[0].classList.add("disabled");
-      var div = document.createElement("div");
-      div.setAttribute("id", "prevMonthBtnCon");
-      div.appendChild(prevMonthBtn);
-      document.getElementById("date-picker")
-        .getElementsByClassName("pagination field is-centered")[0]
-        .appendChild(div);
-      document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed"
-    });
-
-    if (currentDate.getHours() > 18) {
-      document.getElementById("restrauntClosedWarning").hidden = false;
-      yesterday.setDate(yesterday.getDate() + 1);
-      dateModel.setDate(dateModel.getDate() + 1);
-    } else {
-      timeSlots.forEach((timeSlot) => {
-        if (timeSlot < currentDate.getHours() + "" + currentDate.getMinutes()) {
-          document.getElementById(timeSlot.toString()).style.visibility = "hidden";
-        }
-      });
-    }
-
-    const app = new Vue({
-      el: "#app",
-      data: {
-        open: false,
-        date: dateModel,
-        dayNames: ["S", "M", "T", "W", "T", "F", "S"],
-        minDate: yesterday,
-        minTime: minTime,
-        maxTime: maxTime,
-        incrementMinutes: 30,
-        numValue: 1,
-      },
-      methods: {
-        dateChange: function (date) {
-          const dayMonthYear =
-            date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-          const currentDayMonthYear =
-            currentDate.getDate() +
-            "/" +
-            currentDate.getMonth() +
-            "/" +
-            currentDate.getFullYear();
-
-          if (dayMonthYear == currentDayMonthYear) {
-            timeSlots.forEach((timeSlot) => {
-              if (
-                timeSlot <
-                currentDate.getHours() + "" + currentDate.getMinutes()
-              ) {
-                document.getElementById(timeSlot.toString()).style.visibility = "hidden";
-              }
-            });
-          }
-        },
-        monthChange: function (date) {
-          if (date <= currentDate.getMonth()) {
-            var prevMonthBtn = document
-              .getElementById("date-picker")
-              .getElementsByClassName("pagination-previous")[0];
-            prevMonthBtn.classList.add("disabled");
-            prevMonthBtn.childNodes[0].classList.add("disabled");
-            document.getElementById('prevMonthBtnCon').style.cursor = "not-allowed";
-          } else {
-            var prevMonthBtn = document
-              .getElementById("date-picker")
-              .getElementsByClassName("pagination-previous")[0];
-            prevMonthBtn.classList.remove("disabled");
-            prevMonthBtn.childNodes[0].classList.remove("disabled");
-            document.getElementById('prevMonthBtnCon').style.cursor = "pointer"
-          }
-        },
-        submitForm: function() {
-          let req = new XMLHttpRequest();
-
-          const url= process.env.DEV_URL;
-          const bookingPost = {
-            "date": app.date,
-            "time": document.getElementById("time").value,
-            "tables": app.numValue,
-          } 
-
-          req.open("post", url + "/bookings");
-          req.setRequestHeader('Content-Type', 'application/json');
-          req.send(JSON.stringify(bookingPost))
-
-        }
-      },
-    });
-  </script>
+  <script src="js/booking.js"></script>
 </body>
