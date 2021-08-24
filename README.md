@@ -12,11 +12,9 @@ The project used MongoDB, Express, Node and EJS for templating as well as Vue.js
   cd ses1a
 ```
 2. Create .env file with enviroment variables listed bellow  
-3. Install my-project with npm
+3. Install dependencies with npm
 
 ```bash
-  git clone https://github.com/jacobgad/ses1a.git
-  cd ses1a
   npm install
   npm start
 ```
@@ -40,7 +38,7 @@ To run this project, you will need to add the following environment variables to
 `CLOUDINARY_SECRET`
 ## Demo
 
-https://restaurant.gad.engineer
+https://restaurant.gad.engineer/menu
 
 
   
